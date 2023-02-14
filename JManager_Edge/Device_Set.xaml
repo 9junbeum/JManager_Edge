@@ -1,0 +1,52 @@
+﻿<Window x:Class="JManager_Edge.Device_Set"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:JManager_Edge"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="장치 설정" Height="450" Width="500" ResizeMode="NoResize">
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Viewbox HorizontalAlignment="Left" Margin="3">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Gain" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
+                    <Slider x:Name="gain_slider" Orientation="Horizontal" Width="150" Minimum="-95" Maximum="0" Value="-50" SmallChange="1" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ElementName=gain_slider, Path=Value}" Width="40" IsReadOnly="True" Margin="3"/>
+                </StackPanel>
+            </Viewbox>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
+                <StackPanel Orientation= "Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Button Content="장치 재시작" Margin="3" Click="restart"/>
+                    <Button Content="공장 초기화" Margin="3" Click="factory_reset"/>
+                    <Button Content="보정 테스트" Margin="3" Click="sound_correction"/>
+                </StackPanel>
+            </Viewbox>
+        </Grid>
+        
+        <Grid Grid.Row="2">
+            <TextBox x:Name="system_" Margin="5" Background="White" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+        
+        <Grid Grid.Row="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="확인" Width="100" Margin="5" Click="confirm"/>
+                <Button Content="취소" Width="100" Margin="5" Click="close"/>
+            </StackPanel>
+        </Grid>
+        
+        
+    </Grid>
+</Window>

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="JManager_Edge.Device_Button"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:JManager_Edge"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+
+    <Grid x:Name="mother_grid">
+        <Button x:Name="Button_" Background="Gray" Click="Button_Click" Height="150" Width="150" Padding="0">
+            <Grid Height="150" Width="150" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Viewbox>
+                        <Label x:Name="view_kind_box" Content="{materialDesign:PackIcon Kind=HelpCircleOutline}" Background="Tan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Viewbox>
+                </Grid>
+                <Grid Background="LightGray" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TextBlock x:Name="device_name_box" Text="" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                </Grid>
+            </Grid>
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="추가" Click="Add_Device_Btn"/>
+                    <MenuItem Header="수정" Click="Mod_Device_Btn"/>
+                    <MenuItem Header="설정" Click="Set_Device_Btn"/>
+                    <MenuItem Header="삭제" Click="Del_Device_Btn"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+    </Grid>
+</UserControl>

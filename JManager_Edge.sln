@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JManager_Edge", "JManager_Edge\JManager_Edge.csproj", "{5AEC9F2F-3587-426A-913F-631A7C07E7C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AEC9F2F-3587-426A-913F-631A7C07E7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AEC9F2F-3587-426A-913F-631A7C07E7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AEC9F2F-3587-426A-913F-631A7C07E7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AEC9F2F-3587-426A-913F-631A7C07E7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DC8AD49-A1D1-470F-A0FE-F28901531545}
+	EndGlobalSection
+EndGlobal
