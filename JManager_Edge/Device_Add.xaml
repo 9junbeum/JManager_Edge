@@ -23,6 +23,7 @@
                     <TextBox x:Name="ip_address_" Width="150" VerticalContentAlignment="Center"/>
                     <Grid Width="10"/>
                     <Button Content="ping 테스트" Click="Ping_Test"/>
+                    
                 </StackPanel>
             </Viewbox>
         </Grid>
@@ -57,7 +58,8 @@
         </Grid>
         
         <Grid Grid.Row="3">
-            <TextBox x:Name="notification_window" Margin="5" Background="White" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="notification_window" Margin="5" Background="White" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     VerticalContentAlignment="Top" materialDesign:ScrollBarAssist.ThumbCornerRadius="2" materialDesign:ScrollViewerAssist.BubbleVerticalScroll="True"/>
         </Grid>
         
         <Grid Grid.Row="4">

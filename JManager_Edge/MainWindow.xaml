@@ -16,7 +16,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="460"/>
             <ColumnDefinition Width="11*"/>
         </Grid.ColumnDefinitions>
 
@@ -42,6 +42,7 @@
         <Grid x:Name="Grid_DList" Grid.Row="1" Grid.RowSpan="2" Background="Green">
             <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="5">
                 <WrapPanel ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="WPanel_DList" Background="LightBlue">
+                    
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
@@ -63,7 +64,7 @@
         </Grid>
 
         <Grid x:Name="Grid_Bot" Grid.Row="3" Grid.ColumnSpan="2" Background="Blue">
-
+            
         </Grid>
 
     </Grid>

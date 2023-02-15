@@ -8,20 +8,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="150">
 
-    <Grid x:Name="mother_grid">
-        <Button x:Name="Button_" Background="Gray" Click="Button_Click" Height="150" Width="150" Padding="0">
-            <Grid Height="150" Width="150" >
+    <Grid x:Name="mother_grid" Width="150" Height="150">
+        <Button x:Name="Button_" Background="LightGray" Click="left_Btn" Height="148" Width="148" Padding="0" BorderThickness="0">
+            <Grid Height="148" Width="148" Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <Viewbox>
-                        <Label x:Name="view_kind_box" Content="{materialDesign:PackIcon Kind=HelpCircleOutline}" Background="Tan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Viewbox >
+                        <materialDesign:PackIcon x:Name="device_icon" Kind="HelpCircleOutline" />
                     </Viewbox>
                 </Grid>
-                <Grid Background="LightGray" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid Background="Transparent" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <TextBlock x:Name="device_name_box" Text="" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
                 </Grid>
             </Grid>

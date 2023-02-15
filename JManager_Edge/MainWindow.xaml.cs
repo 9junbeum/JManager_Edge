@@ -31,7 +31,7 @@ namespace JManager_Edge
         Device_Button[] Btn_DeviceList_ = new Device_Button[60];
         DispatcherTimer timer;
 
-        DeviceData deviceData = DeviceData.instance;
+        Device_Data_Function deviceData = Device_Data_Function.instance;
 
         public MainWindow()
         {
@@ -96,7 +96,7 @@ namespace JManager_Edge
             //Devices null값 오류 방지를 위해 kind 3으로 초기화(3은 등록되지 않은 상태임.)
             for (int i = 0; i < Btn_DeviceList_.Length; i++)
             {
-                deviceData.Devices[i] = new Device("", "", 3);
+                deviceData.Devices[i] = new Device("", "", 3, "", "");
             }
         }
 
@@ -273,7 +273,7 @@ namespace JManager_Edge
                                 }
                             }
 
-                            Btn_DeviceList_[i].view_kind_box.Content = packIcon;
+                            Btn_DeviceList_[i].device_icon = packIcon;
                             Btn_DeviceList_[i].device_name_box.Text = deviceData.Devices[i].Name;
 
                         }

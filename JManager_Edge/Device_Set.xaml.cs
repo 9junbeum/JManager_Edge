@@ -19,9 +19,12 @@ namespace JManager_Edge
     /// </summary>
     public partial class Device_Set : Window
     {
-        public Device_Set()
+        Device_Data_Function deviceData = Device_Data_Function.instance;
+        private int arr_num;
+        public Device_Set(int i)
         {
             InitializeComponent();
+            arr_num = i;
         }
 
         private void restart(object sender, RoutedEventArgs e)
@@ -46,7 +49,8 @@ namespace JManager_Edge
 
         private void close(object sender, RoutedEventArgs e)
         {
-
+            //돌아가기
+            this.Close();
         }
     }
 }

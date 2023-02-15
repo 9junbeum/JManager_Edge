@@ -22,7 +22,7 @@ namespace JManager_Edge
     /// </summary>
     public partial class Device_Add : Window
     {
-        Device_Data deviceData = Device_Data.instance;
+        Device_Data_Function deviceData = Device_Data_Function.instance;
         int device_num;
 
         public Device_Add(int device_num)

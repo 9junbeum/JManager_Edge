@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace JManager_Edge
 {
-    internal class Device_Data
+    internal class Device_Data_Function
     {
-        static Device_Data _instance = null; //Singleton Pattern
+        static Device_Data_Function _instance = null; //Singleton Pattern
 
         public Device[] Devices = new Device[60]; //장치들 담는 배열 선언
 
-        public static Device_Data instance
+        public static Device_Data_Function instance
         {
             get
             {
-                if (_instance == null) _instance = new Device_Data();
+                if (_instance == null) _instance = new Device_Data_Function();
                 return _instance;
             }
         }
 
-        public Device_Data()
+        public Device_Data_Function()
         {
 
         }
@@ -49,6 +49,14 @@ namespace JManager_Edge
             byte tempForParsing;
 
             return splitValues.All(r => byte.TryParse(r, out tempForParsing));
+        }
+
+        public string make_url(string ip, int kind)
+        {
+            //url 을 만들어 반환하는 함수
+
+            return string.Empty;
+
         }
 
     }
