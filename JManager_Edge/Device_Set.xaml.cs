@@ -19,38 +19,48 @@ namespace JManager_Edge
     /// </summary>
     public partial class Device_Set : Window
     {
-        Device_Data_Function deviceData = Device_Data_Function.instance;
+        Device_Data deviceData = Device_Data.instance;
         private int arr_num;
+
         public Device_Set(int i)
         {
             InitializeComponent();
-            arr_num = i;
+            this.arr_num = i;
         }
 
         private void restart(object sender, RoutedEventArgs e)
         {
-
+            //장치 재시작
+            string url = ""; 
+            deviceData.Send_Url(url, arr_num);
+            system_.Text += "Gain 값" + gain_slider.Value.ToString() + "로 설정되었습니다.\n";
         }
 
         private void factory_reset(object sender, RoutedEventArgs e)
         {
-
+            //공장 초기화
         }
 
         private void sound_correction(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void confirm(object sender, RoutedEventArgs e)
-        {
-
+            //보정 테스트
         }
 
         private void close(object sender, RoutedEventArgs e)
         {
             //돌아가기
             this.Close();
+        }
+
+
+        private void gain_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            string url = "http://" + deviceData.Devices[arr_num].IP + "/axis-cgi/param.cgi?action=update&AudioSource.A0.OutputGain=" + gain_slider.Value;
+            deviceData.Send_Url(url, arr_num);
+
+
+
+            system_.Text += "Gain 값" + gain_slider.Value.ToString() + "로 설정되었습니다.\n";
         }
     }
 }

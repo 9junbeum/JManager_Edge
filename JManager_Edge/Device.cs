@@ -13,8 +13,8 @@ namespace JManager_Edge
         public string Name;//사용자 지정 이름
         public int Kind;   //장치 종류 0 - 스피커 / 1 - 카메라 / 2 - 기타 / 3 - 등록안됨
 
-        private string ID;
-        private string PW;
+        public string ID;
+        public string PW;
 
         public Device(string ip, string name, int kind, string id, string pw)
         {

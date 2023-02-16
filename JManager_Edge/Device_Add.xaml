@@ -20,7 +20,7 @@
             <Viewbox HorizontalAlignment="Left" Margin="3">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="IP 주소" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <TextBox x:Name="ip_address_" Width="150" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="ip_address_" Width="150" VerticalContentAlignment="Center" Text="192.168.21."/>
                     <Grid Width="10"/>
                     <Button Content="ping 테스트" Click="Ping_Test"/>
                     
@@ -34,7 +34,7 @@
                     <Label Content="ID" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
                     <TextBox x:Name="device_ID" Width="100" VerticalContentAlignment="Center"/>
                     <Label Content="PW" Width="40" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <TextBox x:Name="device_PW" Width="100" VerticalContentAlignment="Center"/>
+                    <PasswordBox x:Name="device_PW" Width="100" VerticalContentAlignment="Center" PasswordChar="*" />
                     <Grid Width="10"/>
                     <Button Content="검증" Click="verify_login"/>
                 </StackPanel>

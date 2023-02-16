@@ -22,7 +22,7 @@ namespace JManager_Edge
     /// </summary>
     public partial class Device_Add : Window
     {
-        Device_Data_Function deviceData = Device_Data_Function.instance;
+        Device_Data deviceData = Device_Data.instance;
         int device_num;
 
         public Device_Add(int device_num)
@@ -96,12 +96,12 @@ namespace JManager_Edge
             //해당 아이디 비밀번호로 IP에 로그인 할 수 있는지 확인
             if (device_ID.Text != String.Empty)
             {
-                if (device_PW.Text != String.Empty)
+                if (device_PW.Password != String.Empty)
                 {
                     if (deviceData.ValidateIPv4(ip_address_.Text))
                     {
 
-                        SendUrl_with_IDPW(device_ID.Text, device_PW.Text, ip_address_.Text);
+                        SendUrl_with_IDPW(device_ID.Text, device_PW.Password, ip_address_.Text);
                     }
                     else
                     {
@@ -132,7 +132,7 @@ namespace JManager_Edge
 
             //request.Timeout = 30 * 1000; // 30초
             //request.Headers.Add("Authorization", "BASIC SGVsbG8="); // 헤더 추가 방법
-
+            
             using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
             {
                 Dispatcher.Invoke(() =>
@@ -177,14 +177,14 @@ namespace JManager_Edge
                     {
                         if(device_ID.Text != String.Empty)
                         {
-                            if(device_PW.Text != String.Empty)
+                            if(device_PW.Password != String.Empty)
                             {
 
                                 MessageBoxResult messageboxresult = MessageBox.Show("다음과 같은 내용으로 새로운 장치를 등록합니다.\n" + "IP주소 :" + ip_address_.Text + "\n장치 이름 :" + name_.Text + "\n장치 종류 :" + kind_.SelectionBoxItem, "저장", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
                                 if (messageboxresult == MessageBoxResult.OK)
                                 {
-                                    Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Text);
+                                    Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Password);
                                     deviceData.Devices[device_num] = new_device;
                                     this.Close();
                                 }

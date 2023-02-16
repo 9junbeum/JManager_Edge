@@ -1,35 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace JManager_Edge
 {
-    internal class Device_Data_Function
+    internal class Device_Data
     {
-        static Device_Data_Function _instance = null; //Singleton Pattern
+        static Device_Data _instance = null; //Singleton Pattern
 
         public Device[] Devices = new Device[60]; //장치들 담는 배열 선언
+        public string[] D_GrData = new string[15]; //장치 관리하는 그룹 데이터 변수(15칸) 설정.
 
-        public static Device_Data_Function instance
+        public static Device_Data instance
         {
             get
             {
-                if (_instance == null) _instance = new Device_Data_Function();
+                if (_instance == null) _instance = new Device_Data();
                 return _instance;
             }
         }
 
-        public Device_Data_Function()
+        public Device_Data()
         {
 
         }
 
-        public void save_Device(Device device_to_save)
-        {
-
-        }
         public bool ValidateIPv4(string ipString)
         {
             //IP주소 형식이 정확한지 판별하는 함수
@@ -51,13 +50,36 @@ namespace JManager_Edge
             return splitValues.All(r => byte.TryParse(r, out tempForParsing));
         }
 
-        public string make_url(string ip, int kind)
+
+        public void Send_Url(string url, int arr_num)
         {
-            //url 을 만들어 반환하는 함수
 
-            return string.Empty;
+            string responseText = string.Empty;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.UseDefaultCredentials = true;
+            request.PreAuthenticate = true;
+            
+            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(Devices[arr_num].ID, Devices[arr_num].PW, Devices[arr_num].IP);
+            request.Credentials = netCredential;
 
+            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+            {
+                HttpStatusCode status = resp.StatusCode;
+                if (status == HttpStatusCode.OK)
+                {
+                    //Stream respStream = resp.GetResponseStream();
+                    //using (StreamReader sr = new StreamReader(respStream))
+                    //{
+                    //    responseText = sr.ReadToEnd();
+                    //    notification_window.Text += responseText;
+                    //}
+                }
+                else
+                {
+
+                }
+            }
         }
-
     }
 }

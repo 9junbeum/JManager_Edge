@@ -20,7 +20,7 @@
             <Viewbox HorizontalAlignment="Left" Margin="3">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Gain" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <Slider x:Name="gain_slider" Orientation="Horizontal" Width="150" Minimum="-95" Maximum="0" Value="-50" SmallChange="1" VerticalAlignment="Center"/>
+                    <Slider x:Name="gain_slider" Orientation="Horizontal" Width="150" Minimum="-95" Maximum="0" Value="-50" SmallChange="1" VerticalAlignment="Center" TickFrequency="1" Interval="1" IsSnapToTickEnabled="True"/>
                     <TextBox Text="{Binding ElementName=gain_slider, Path=Value}" Width="40" IsReadOnly="True" Margin="3"/>
                 </StackPanel>
             </Viewbox>
@@ -42,7 +42,6 @@
         
         <Grid Grid.Row="3">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="확인" Width="100" Margin="5" Click="confirm"/>
                 <Button Content="취소" Width="100" Margin="5" Click="close"/>
             </StackPanel>
         </Grid>

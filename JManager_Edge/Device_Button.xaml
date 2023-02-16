@@ -9,15 +9,16 @@
              d:DesignHeight="150" d:DesignWidth="150">
 
     <Grid x:Name="mother_grid" Width="150" Height="150">
-        <Button x:Name="Button_" Background="LightGray" Click="left_Btn" Height="148" Width="148" Padding="0" BorderThickness="0">
+        <Button x:Name="Button_" Background="LightGray" Click="left_Btn" Height="148" Width="148" Padding="0" BorderThickness="2">
             <Grid Height="148" Width="148" Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <local:LED_Indicator x:Name="led_" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"/>
                 <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <Viewbox >
+                    <Viewbox>
                         <materialDesign:PackIcon x:Name="device_icon" Kind="HelpCircleOutline" />
                     </Viewbox>
                 </Grid>

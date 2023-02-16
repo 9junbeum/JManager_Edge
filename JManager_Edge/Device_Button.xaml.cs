@@ -20,18 +20,20 @@ namespace JManager_Edge
     /// </summary>
     public partial class Device_Button : UserControl
     {
-        Device_Data_Function deviceData = Device_Data_Function.instance;
+        Device_Data deviceData = Device_Data.instance;
         private int arr_num;
         MaterialDesignThemes.Wpf.PackIcon pi = null; //나중에 사라질 것
 
         public Device_Button(int i)
         {
-            InitializeComponent(); arr_num = i;
+            InitializeComponent(); 
+            arr_num = i;
         }
 
         private void left_Btn(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("마우스 왼쪽 클릭");
+            //Button_.BorderThickness = BorderThicknessPro;
+            Button_.BorderBrush = Brushes.Red ;
         }
 
         private void Add_Device_Btn(object sender, RoutedEventArgs e)
@@ -53,15 +55,27 @@ namespace JManager_Edge
             {
                 add_device.kind_.SelectedIndex = deviceData.Devices[arr_num].Kind;
 
+                add_device.Show();
             }
-            add_device.Show();
+            else
+            {
+                MessageBox.Show("장치를 먼저 등록해주세요.");
+            } 
+
         }
 
         private void Set_Device_Btn(object sender, RoutedEventArgs e)
         {
             //장치 설정
-            Device_Set set_device = new Device_Set(arr_num);
-            set_device.ShowDialog();
+            if (deviceData.Devices[arr_num].Kind != 3)
+            {
+                Device_Set set_device = new Device_Set(arr_num);
+                set_device.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("장치를 먼저 등록해주세요.");
+            }
         }
 
         private void Del_Device_Btn(object sender, RoutedEventArgs e)
