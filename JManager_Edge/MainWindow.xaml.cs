@@ -47,7 +47,11 @@ namespace JManager_Edge
         {
             InitializeComponent();
             Init();
-            Add_Btn();
+            Add_Btn(); 
+            Init_Devices();
+
+            Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button));
+            watch_device_data_change_thread.Start();
         }
 
         private void Init()
@@ -222,6 +226,14 @@ namespace JManager_Edge
             Btn_ScheduleDay[6].Content = "일";
         }
 
+        private void Init_Devices()
+        {
+            //Devices null값 오류 방지를 위해 kind 3으로 초기화(3은 등록되지 않은 상태임.)
+            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            {
+                deviceData.Devices[i] = new Device("", "", 3, "", "");
+            }
+        }
         private void Timer_Tick(object sender, EventArgs e)
         {
             Lb_Timer.Content = DateTime.Now.ToLongTimeString();
@@ -1117,6 +1129,90 @@ namespace JManager_Edge
                 }
             }
         }
+
+
+        private void Update_Device_Button()
+        {
+            //Devices 배열 기반으로 Button들 업데이트 하는 Thread
+
+            while (true)
+            {
+                 Dispatcher.Invoke(() =>
+                {
+                    for (int i = 0; i < Btn_DeviceList.Length; i++)
+                    {
+
+                        if (deviceData.Devices[i] != null)
+                        {
+                            MaterialDesignThemes.Wpf.PackIcon packIcon = new MaterialDesignThemes.Wpf.PackIcon();
+                            switch (deviceData.Devices[i].Kind)
+                            {
+                                case (0): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Speaker; break;
+                                case (1): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Cctv; break;
+                                case (2): Btn_DeviceList[i].device_icon.Kind = PackIconKind.MobileDevices; break;
+                                case (3): Btn_DeviceList[i].device_icon.Kind = PackIconKind.HelpCircleOutline; Btn_DeviceList[i].led_.color.Fill = Brushes.Gray; break;
+                            }
+
+                            //디바이스가 저장되어있음(등록 되어있음)
+                            if (deviceData.Devices[i].IP != "")
+                            {
+                                if (!Ping_(deviceData.Devices[i].IP))
+                                {
+                                    //디바이스가 연결 안되어있음
+                                    Btn_DeviceList[i].led_.color.Fill = Brushes.Orange;
+                                }
+                                else
+                                {
+                                    //디바이스가 연결 되어있음
+                                    Btn_DeviceList[i].led_.color.Fill = Brushes.Green;
+                                }
+                            }
+
+                            //Btn_DeviceList[i].device_icon.Kind = packIcon;
+                            Btn_DeviceList[i].device_name_box.Text = deviceData.Devices[i].Name;
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Device 정보를 불러오는데 실패했습니다. 오류");
+                        }
+
+
+                    }
+                });
+                Thread.Sleep(1000);
+
+
+            }
+        }
+        private bool Ping_(string ip)
+        {
+            Ping pingSender = new Ping();
+            PingOptions options = new PingOptions();
+
+            // Use the default Ttl value which is 128,
+            // but change the fragmentation behavior.
+            options.DontFragment = true;
+
+            // Create a buffer of 32 bytes of data to be transmitted.
+            string data = "test";
+            byte[] buffer = Encoding.ASCII.GetBytes(data);
+            int timeout = 120;
+            string address = ip;
+
+            PingReply reply = pingSender.Send(address, timeout, buffer, options);
+            if (reply.Status == IPStatus.Success)
+            {
+                return true;
+            }
+            else
+            {
+                //실패
+                return false;
+            }
+
+        }
+
 
     }
     public class Schedule
