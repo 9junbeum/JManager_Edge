@@ -32,7 +32,7 @@
             <Viewbox HorizontalAlignment="Left" Margin="3">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="ID" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <TextBox x:Name="device_ID" Width="100" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="device_ID" Width="100" VerticalContentAlignment="Center" Text="root"/>
                     <Label Content="PW" Width="40" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
                     <PasswordBox x:Name="device_PW" Width="100" VerticalContentAlignment="Center" PasswordChar="*" />
                     <Grid Width="10"/>
@@ -45,10 +45,10 @@
             <Viewbox HorizontalAlignment="Left" Margin="3">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="이름" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <TextBox x:Name="name_" Width="150" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="name_" Text="테스트" Width="150" VerticalContentAlignment="Center"/>
                     <Grid Width="20"/>
                     <Label Content="종류" Width="40" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <ComboBox x:Name="kind_" Width="100">
+                    <ComboBox x:Name="kind_" Width="100" SelectedIndex="0">
                         <ComboBoxItem Content="스피커" Tag="0"/>
                         <ComboBoxItem Content="카메라" Tag="1"/>
                         <ComboBoxItem Content="기타" Tag="2"/>

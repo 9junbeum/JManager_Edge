@@ -273,7 +273,7 @@ namespace JManager_Edge
                                 if (schedules[i].MP3 == (string)Btn_ScheduleMP3[j].Content)
                                 {
                                     s_Url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=play&clip=" + j;
-                                    SendUrl(s_Url);
+                                    //SendUrl(s_Url); 
                                 }
                             }
                         }
@@ -305,7 +305,7 @@ namespace JManager_Edge
                             {
                                 b_Timer = false;
                                 s_Url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
-                                SendUrl(s_Url);
+                                //SendUrl(s_Url);
                             }
                         }
                     }
@@ -351,14 +351,15 @@ namespace JManager_Edge
             }
         }
 
-        private void SendUrl(string url)
+        private void SendUrl(string url, string id, string pw, string ip)
         {
+            string s_url = "http://" + id + ":" + pw + "@" + ip + url;
             string responseText = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.UseDefaultCredentials = true;
             request.PreAuthenticate = true;
-            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential("root", "pass", "192.168.21.195");
+            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(id, pw, ip);
             request.Credentials = netCredential;
 
             using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
@@ -1172,6 +1173,13 @@ namespace JManager_Edge
         }
 
 
+        //스레드로 연속 재생
+        public Thread StartThread(string url, string id, string pw, string ip)
+        {
+            var t = new Thread(() => SendUrl(url, id, pw, ip));
+            t.Start();
+            return t;
+        }
         private void Update_Device_Button()
         {
             //Devices 배열 기반으로 Button들 업데이트 하는 Thread

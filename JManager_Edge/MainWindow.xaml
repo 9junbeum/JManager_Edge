@@ -21,7 +21,7 @@
             <ColumnDefinition Width="11*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="Grid_Top" Grid.Row="0" Grid.ColumnSpan="2" Background="Red">
+        <Grid x:Name="Grid_Top" Grid.Row="0" Grid.ColumnSpan="2" Background="DimGray">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Label x:Name="Lb_Head" Content="(주)진명아이앤씨" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20"/>
                 <Label x:Name="Lb_Name" Content="JManager Edge 1.0" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20"/>
@@ -31,13 +31,13 @@
             </StackPanel>
             <Button x:Name="Btn_Close" Content="종료" Margin="3" Width="70" HorizontalAlignment="Right" Click="Btn_Close_Click"/>
         </Grid>
-        <Grid x:Name="Grid_Mod" Grid.Row="1" Grid.ColumnSpan="2" Background="Orange">
+        <Grid x:Name="Grid_Mod" Grid.Row="1" Grid.ColumnSpan="2" Background="DarkSlateGray">
 
             <Button x:Name="Btn_DRun" Content="운용모드" Width="100" Height="50" Click="Btn_DRun_Click" Margin="350,12,350,11"/>
             <Button x:Name="Btn_DSchedule" Content="스케줄링" Width="100" Height="50" Click="Btn_DSchedule_Click" Margin="470,12,230,11"/>
             <Button x:Name="Btn_DSetting" Content="장비설정" Width="100" Height="50" Click="Btn_DSetting_Click" Margin="586,12,114,11"/>
         </Grid>
-        <Grid x:Name="Grid_DList" Grid.Row="2" Background="Green">
+        <Grid x:Name="Grid_DList" Grid.Row="2" Background="Gray">
             <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="5">
                 <WrapPanel x:Name="WPanel_DList" Background="Transparent">
 
@@ -57,7 +57,7 @@
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="Black">
+        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030">
             <StackPanel x:Name="SPanel_List" Width="1000" Height="430" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,50,10,10" Background="Gray">
                 <ListView x:Name="LV_Schedule" FontSize="15" HorizontalAlignment="Center" Height="400" MouseDoubleClick="LV_Schedule_MouseDoubleClick" VerticalAlignment="Center" Margin="20,0,0,0" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.View>
@@ -138,7 +138,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="Grid_Bot" Grid.Row="3" Grid.ColumnSpan="2" Background="Blue">
+        <Grid x:Name="Grid_Bot" Grid.Row="3" Grid.ColumnSpan="2" Background="LightGray">
 
         </Grid>
 
