@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Security.Policy;
 
 namespace JManager_Edge
 {
@@ -310,6 +311,43 @@ namespace JManager_Edge
                     }
                     b_Day = false;
                 }
+            }
+        }
+
+        private void SendUrl_with_IDPW(string rrr, string id, string pw, string ip)
+        {
+            string url = rrr;
+            string responseText = string.Empty;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.UseDefaultCredentials = true;
+            request.PreAuthenticate = true;
+            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(id, pw, ip);
+            request.Credentials = netCredential;
+
+            //request.Timeout = 30 * 1000; // 30초
+            //request.Headers.Add("Authorization", "BASIC SGVsbG8="); // 헤더 추가 방법
+
+            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    HttpStatusCode status = resp.StatusCode;
+                    Console.WriteLine(status);  // 정상이면 "OK"
+                    if (status == HttpStatusCode.OK)
+                    {
+                        Stream respStream = resp.GetResponseStream();
+                        using (StreamReader sr = new StreamReader(respStream))
+                        {
+                            responseText = sr.ReadToEnd();
+                        //    notification_window.Text += responseText;
+                        }
+
+                    }
+                    else
+                    {
+                    }
+                });
             }
         }
 
@@ -671,9 +709,12 @@ namespace JManager_Edge
         private void Btn_Close_Click(object sender, RoutedEventArgs e)
         {
             //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=play&clip=0";
-            string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
-            SendUrl(url);
+            //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
+
+            this.Close();
+
         }
+
 
         private void Btn_GrSet_Click(object sender, RoutedEventArgs e)
         {
@@ -1141,7 +1182,6 @@ namespace JManager_Edge
                 {
                     for (int i = 0; i < Btn_DeviceList.Length; i++)
                     {
-
                         if (deviceData.Devices[i] != null)
                         {
                             MaterialDesignThemes.Wpf.PackIcon packIcon = new MaterialDesignThemes.Wpf.PackIcon();
@@ -1150,7 +1190,7 @@ namespace JManager_Edge
                                 case (0): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Speaker; break;
                                 case (1): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Cctv; break;
                                 case (2): Btn_DeviceList[i].device_icon.Kind = PackIconKind.MobileDevices; break;
-                                case (3): Btn_DeviceList[i].device_icon.Kind = PackIconKind.HelpCircleOutline; Btn_DeviceList[i].led_.color.Fill = Brushes.Gray; break;
+                                case (3): Btn_DeviceList[i].device_icon.Kind = PackIconKind.HelpCircleOutline; break;
                             }
 
                             //디바이스가 저장되어있음(등록 되어있음)
@@ -1164,11 +1204,14 @@ namespace JManager_Edge
                                 else
                                 {
                                     //디바이스가 연결 되어있음
-                                    Btn_DeviceList[i].led_.color.Fill = Brushes.Green;
+                                    Btn_DeviceList[i].led_.color.Fill = Brushes.LightGreen;
                                 }
                             }
+                            else
+                            {
+                                Btn_DeviceList[i].led_.color.Fill = Brushes.Gray;
+                            }
 
-                            //Btn_DeviceList[i].device_icon.Kind = packIcon;
                             Btn_DeviceList[i].device_name_box.Text = deviceData.Devices[i].Name;
 
                         }

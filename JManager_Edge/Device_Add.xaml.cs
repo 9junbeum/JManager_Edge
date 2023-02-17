@@ -52,7 +52,7 @@ namespace JManager_Edge
 
                 for (int times = 0; times < 4; times++)
                 {
-                    PingReply reply = pingSender.Send(address, timeout, buffer, options); 
+                      PingReply reply = pingSender.Send(address, timeout, buffer, options); 
                     string str = string.Empty;
                     if (reply.Status == IPStatus.Success)
                     {
@@ -132,30 +132,39 @@ namespace JManager_Edge
 
             //request.Timeout = 30 * 1000; // 30초
             //request.Headers.Add("Authorization", "BASIC SGVsbG8="); // 헤더 추가 방법
-            
-            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    HttpStatusCode status = resp.StatusCode;
-                    Console.WriteLine(status);  // 정상이면 "OK"
-                    notification_window.Text += status;
-                    if (status == HttpStatusCode.OK)
-                    {
-                        //Stream respStream = resp.GetResponseStream();
-                        //using (StreamReader sr = new StreamReader(respStream))
-                        //{
-                        //    responseText = sr.ReadToEnd();
-                        //    notification_window.Text += responseText;
-                        //}
 
-                        notification_window.Text += "연결에 성공했습니다.";
-                    }
-                    else
+            try
+            {
+                using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+                {
+                    Dispatcher.Invoke(() =>
                     {
-                        notification_window.Text += "아이디, 비밀번호를 확인해주세요";
-                    }
-                });
+                        HttpStatusCode status = resp.StatusCode;
+                        Console.WriteLine(status);  // 정상이면 "OK"
+                        notification_window.Text += status;
+                        if (status == HttpStatusCode.OK)
+                        {
+                            //Stream respStream = resp.GetResponseStream();
+                            //using (StreamReader sr = new StreamReader(respStream))
+                            //{
+                            //    responseText = sr.ReadToEnd();
+                            //    notification_window.Text += responseText;
+                            //}
+
+                            notification_window.Text += "연결에 성공했습니다.";
+                        }
+                        else
+                        {
+                            notification_window.Text += "오류가 발생했습니다.";
+                            notification_window.Text += status.ToString();
+                        }
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                notification_window.Text += ex.Message +"\n";
+                notification_window.Text += "입력하신 아이디, 비밀번호를 확인해주세요";
             }
         }
 

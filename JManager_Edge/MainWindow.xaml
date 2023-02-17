@@ -38,8 +38,8 @@
             <Button x:Name="Btn_DSetting" Content="장비설정" Width="100" Height="50" Click="Btn_DSetting_Click" Margin="586,12,114,11"/>
         </Grid>
         <Grid x:Name="Grid_DList" Grid.Row="2" Background="Green">
-            <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="10,15,10,15">
-                <WrapPanel x:Name="WPanel_DList" Background="LightBlue">
+            <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="5">
+                <WrapPanel x:Name="WPanel_DList" Background="Transparent">
 
                 </WrapPanel>
             </ScrollViewer>

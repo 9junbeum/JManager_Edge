@@ -34,7 +34,7 @@ namespace JManager_Edge
             //IP주소 형식이 정확한지 판별하는 함수
             //어디서든 접근가능하도록 전역변수 Device_Data에 저장
 
-            if (String.IsNullOrWhiteSpace(ipString))
+            if (string.IsNullOrWhiteSpace(ipString))
             {
                 return false;
             }
