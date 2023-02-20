@@ -9,7 +9,7 @@
              d:DesignHeight="150" d:DesignWidth="150">
 
     <Grid x:Name="mother_grid" Width="150" Height="150">
-        <Button x:Name="Button_" Background="LightGray" Click="left_Btn" Height="148" Width="148" Padding="0" BorderThickness="2">
+        <Button x:Name="Button_" Background="LightGray" BorderBrush="Black" BorderThickness="1" Click="left_Btn" Height="148" Width="148" Padding="0">
             <Grid Height="148" Width="148" Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -30,9 +30,7 @@
                 <ContextMenu>
                     <MenuItem Header="추가" Click="Add_Device_Btn"/>
                     <MenuItem Header="수정" Click="Mod_Device_Btn"/>
-                    <MenuItem Header="수정" Click="Mod_Device_Btn"/>
                     <MenuItem Header="설정" Click="Set_Device_Btn"/>
-                    <MenuItem Header="ㅇㅅㅇ" Click="Set_Device_Btn"/>
                     <MenuItem Header="삭제" Click="Del_Device_Btn"/>
                 </ContextMenu>
             </Button.ContextMenu>

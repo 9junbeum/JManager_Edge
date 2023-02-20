@@ -18,7 +18,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Security.Policy;
 
 namespace JManager_Edge
 {
@@ -49,7 +48,8 @@ namespace JManager_Edge
         {
             InitializeComponent();
             Init();
-            Add_Btn(); 
+            Add_Btn();
+
             Init_Devices();
 
             Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button));
@@ -139,13 +139,14 @@ namespace JManager_Edge
             for (int i = 0; i < Btn_MainGR.Length; i++)
             {
                 Btn_MainGR[i] = new Button();
-                Btn_MainGR[i].Width = 140;
-                Btn_MainGR[i].Height = 140;
+                Btn_MainGR[i].Width = 120;
+                Btn_MainGR[i].Height = 165;
+                Btn_MainGR[i].FontSize = 20;
 
                 Btn_MainGR[i].HorizontalAlignment = HorizontalAlignment.Left;
                 Btn_MainGR[i].VerticalAlignment = VerticalAlignment.Top;
                 Btn_MainGR[i].Name = "Btn_MainGR" + (i + 1);
-                Btn_MainGR[i].Content = "" + i;
+                Btn_MainGR[i].Content = "그룹" + i;
                 Btn_MainGR[0].Content = "그룹전체";
                 Btn_MainGR[i].Background = Brushes.LightGray;
                 Btn_MainGR[i].BorderBrush = Brushes.Black;
@@ -159,7 +160,7 @@ namespace JManager_Edge
                 Btn_ScheduleGR[i].HorizontalAlignment = HorizontalAlignment.Left;
                 Btn_ScheduleGR[i].VerticalAlignment = VerticalAlignment.Top;
                 Btn_ScheduleGR[i].Name = "Btn_ScheduleGR" + (i + 1);
-                Btn_ScheduleGR[i].Content = "" + i;
+                Btn_ScheduleGR[i].Content = "그룹" + i;
                 Btn_ScheduleGR[0].Content = "그룹전체";
                 Btn_ScheduleGR[i].Background = Brushes.LightGray;
                 Btn_ScheduleGR[i].BorderBrush = Brushes.Black;
@@ -177,7 +178,7 @@ namespace JManager_Edge
                 Btn_SetGR[i].VerticalAlignment = VerticalAlignment.Top;
                 //Btn_MainGR.Margin = new Thickness(iPosX, iPosY, 0, 0);
                 Btn_SetGR[i].Name = "Btn_SetGR" + (i + 1);
-                Btn_SetGR[i].Content = "" + (i + 1);
+                Btn_SetGR[i].Content = "그룹" + (i + 1);
                 Btn_SetGR[i].Background = Brushes.LightGray;
                 Btn_SetGR[i].BorderBrush = Brushes.Black;
                 Btn_SetGR[i].Click += new RoutedEventHandler(Btn_SetGR_Click);
@@ -227,7 +228,6 @@ namespace JManager_Edge
             Btn_ScheduleDay[5].Content = "토";
             Btn_ScheduleDay[6].Content = "일";
         }
-
         private void Init_Devices()
         {
             //Devices null값 오류 방지를 위해 kind 3으로 초기화(3은 등록되지 않은 상태임.)
@@ -236,6 +236,7 @@ namespace JManager_Edge
                 deviceData.Devices[i] = new Device("", "", 3, "", "");
             }
         }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             Lb_Timer.Content = DateTime.Now.ToLongTimeString();
@@ -274,7 +275,7 @@ namespace JManager_Edge
                                 if (schedules[i].MP3 == (string)Btn_ScheduleMP3[j].Content)
                                 {
                                     s_Url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=play&clip=" + j;
-                                    //SendUrl(s_Url); 
+                                    //SendUrl(s_Url);
                                 }
                             }
                         }
@@ -315,52 +316,15 @@ namespace JManager_Edge
             }
         }
 
-        private void SendUrl_with_IDPW(string rrr, string id, string pw, string ip)
+        private void SendUrl(string url, string ID, string PW, string IP)
         {
-            string url = rrr;
-            string responseText = string.Empty;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.UseDefaultCredentials = true;
-            request.PreAuthenticate = true;
-            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(id, pw, ip);
-            request.Credentials = netCredential;
-
-            //request.Timeout = 30 * 1000; // 30초
-            //request.Headers.Add("Authorization", "BASIC SGVsbG8="); // 헤더 추가 방법
-
-            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    HttpStatusCode status = resp.StatusCode;
-                    Console.WriteLine(status);  // 정상이면 "OK"
-                    if (status == HttpStatusCode.OK)
-                    {
-                        Stream respStream = resp.GetResponseStream();
-                        using (StreamReader sr = new StreamReader(respStream))
-                        {
-                            responseText = sr.ReadToEnd();
-                        //    notification_window.Text += responseText;
-                        }
-
-                    }
-                    else
-                    {
-                    }
-                });
-            }
-        }
-
-        private void SendUrl(string url, string id, string pw, string ip)
-        {
-            string s_url = "http://" + id + ":" + pw + "@" + ip + url;
+            string s_url = "http://" + ID + ":" + PW + "@" + IP + url;
             string responseText = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(s_url);
             request.Method = "GET";
             request.UseDefaultCredentials = true;
             request.PreAuthenticate = true;
-            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(id, pw, ip);
+            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(ID, PW, IP);
             request.Credentials = netCredential;
 
             using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
@@ -508,10 +472,20 @@ namespace JManager_Edge
                         if (Btn_MainGR[i].Background == Brushes.LightGray)
                         {
                             Btn_MainGR[i].Background = Brushes.Red;
+                            for (int j = 0; j < (Btn_DeviceList.Length); j++)
+                            {
+                                Btn_DeviceList[j].Button_.BorderThickness = new Thickness(2);
+                                Btn_DeviceList[j].Button_.BorderBrush = Brushes.Red;
+                            }
                         }
                         else if (Btn_MainGR[i].Background == Brushes.Red)
                         {
                             Btn_MainGR[i].Background = Brushes.LightGray;
+                            for (int j = 0; j < (Btn_DeviceList.Length); j++)
+                            {
+                                Btn_DeviceList[j].Button_.BorderThickness = new Thickness(1);
+                                Btn_DeviceList[j].Button_.BorderBrush = Brushes.Black;
+                            }
                         }
                     }
                     else
@@ -527,8 +501,8 @@ namespace JManager_Edge
                                 pars = deviceData.D_GrData[i - 1].Split(',');
                                 for (int j = 0; j < (pars.Length - 1); j++)
                                 {
-                                    Btn_DeviceList[Int32.Parse(pars[j])].BorderThickness = new Thickness(2);
-                                    Btn_DeviceList[Int32.Parse(pars[j])].BorderBrush = Brushes.Red;
+                                    Btn_DeviceList[Int32.Parse(pars[j])].Button_.BorderThickness = new Thickness(2);
+                                    Btn_DeviceList[Int32.Parse(pars[j])].Button_.BorderBrush = Brushes.Red;
                                 }
                             }
                         }
@@ -541,8 +515,8 @@ namespace JManager_Edge
                                 pars = deviceData.D_GrData[i - 1].Split(',');
                                 for (int j = 0; j < (pars.Length - 1); j++)
                                 {
-                                    Btn_DeviceList[Int32.Parse(pars[j])].BorderThickness = new Thickness(1);
-                                    Btn_DeviceList[Int32.Parse(pars[j])].BorderBrush = Brushes.Black;
+                                    Btn_DeviceList[Int32.Parse(pars[j])].Button_.BorderThickness = new Thickness(1);
+                                    Btn_DeviceList[Int32.Parse(pars[j])].Button_.BorderBrush = Brushes.Black;
                                 }
                             }
                         }
@@ -634,7 +608,8 @@ namespace JManager_Edge
 
                         for (int j = 0; j < Btn_DeviceList.Length; j++)
                         {
-                            Btn_DeviceList[j].Button_.BorderBrush = Brushes.Transparent;
+                            Btn_DeviceList[j].Button_.BorderThickness = new Thickness(1);
+                            Btn_DeviceList[j].Button_.BorderBrush = Brushes.Black;
                         }
 
                         if (deviceData.D_GrData[i] != null)
@@ -694,7 +669,8 @@ namespace JManager_Edge
             Grid_DSetting.Visibility = Visibility.Hidden;
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                Btn_DeviceList[i].Button_.BorderBrush = Brushes.Transparent;
+                Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
+                Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
             }
             for (int i = 0; i < Btn_MainGR.Length; i++)
             {
@@ -716,12 +692,13 @@ namespace JManager_Edge
             Grid_DSetting.Visibility = Visibility.Visible;
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                Btn_DeviceList[i].BorderBrush = Brushes.Transparent;
+                Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
+                Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
             }
             for (int i = 0; i < Btn_SetGR.Length; i++)
             {
-                Btn_SetGR[i].BorderThickness = new Thickness(1);
-                Btn_SetGR[i].BorderBrush = Brushes.Black;
+                //Btn_SetGR[i].BorderThickness = new Thickness(1);
+                //Btn_SetGR[i].BorderBrush = Brushes.Black;
                 Btn_SetGR[i].Background = Brushes.LightGray;
             }
         }
@@ -729,14 +706,9 @@ namespace JManager_Edge
         private void Btn_Close_Click(object sender, RoutedEventArgs e)
         {
             //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=play&clip=0";
-            //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
-            //저장해야지
-
-            // 스레드 close.            Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button)); 
-            this.Close();
-
+            string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
+            //SendUrl(url);
         }
-
 
         private void Btn_GrSet_Click(object sender, RoutedEventArgs e)
         {
@@ -751,11 +723,12 @@ namespace JManager_Edge
 
                     for (int j = 0; j < Btn_DeviceList.Length; j++)
                     {
-                        if (Btn_DeviceList[j].BorderThickness == new Thickness(2))
+                        if (Btn_DeviceList[j].Button_.BorderThickness == new Thickness(2))
                         {
                             deviceData.D_GrData[i] += j + ",";
                         }
                     }
+                    Group_Update();
                 }
             }
 
@@ -764,6 +737,15 @@ namespace JManager_Edge
                 MessageBox.Show("설정할 그룹채널을 선택해주세요!");
             }
         }
+        private void Group_Update()
+        {
+            for (int i = 0; i < Btn_SetGR.Length; i++)
+            {
+                Btn_MainGR[i + 1].Content = Btn_SetGR[i].Content;
+                Btn_ScheduleGR[i + 1].Content = Btn_SetGR[i].Content;
+            }
+        }
+
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
@@ -1189,98 +1171,6 @@ namespace JManager_Edge
             }
         }
 
-
-        //스레드로 연속 재생
-        public Thread StartThread(string url, string id, string pw, string ip)
-        {
-            var t = new Thread(() => SendUrl(url, id, pw, ip));
-            t.Start();
-            return t;
-        }
-        private void Update_Device_Button()
-        {
-            //Devices 배열 기반으로 Button들 업데이트 하는 Thread
-
-            while (true)
-            {
-                 Dispatcher.Invoke(() =>
-                {
-                    for (int i = 0; i < Btn_DeviceList.Length; i++)
-                    {
-                        if (deviceData.Devices[i] != null)
-                        {
-                            MaterialDesignThemes.Wpf.PackIcon packIcon = new MaterialDesignThemes.Wpf.PackIcon();
-                            switch (deviceData.Devices[i].Kind)
-                            {
-                                case (0): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Speaker; break;
-                                case (1): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Cctv; break;
-                                case (2): Btn_DeviceList[i].device_icon.Kind = PackIconKind.MobileDevices; break;
-                                case (3): Btn_DeviceList[i].device_icon.Kind = PackIconKind.HelpCircleOutline; break;
-                            }
-
-                            //디바이스가 저장되어있음(등록 되어있음)
-                            if (deviceData.Devices[i].IP != "")
-                            {
-                                if (!Ping_(deviceData.Devices[i].IP))
-                                {
-                                    //디바이스가 연결 안되어있음
-                                    Btn_DeviceList[i].led_.color.Fill = Brushes.Orange;
-                                }
-                                else
-                                {
-                                    //디바이스가 연결 되어있음
-                                    Btn_DeviceList[i].led_.color.Fill = Brushes.LightGreen;
-                                }
-                            }
-                            else
-                            {
-                                Btn_DeviceList[i].led_.color.Fill = Brushes.Gray;
-                            }
-
-                            Btn_DeviceList[i].device_name_box.Text = deviceData.Devices[i].Name;
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Device 정보를 불러오는데 실패했습니다. 오류");
-                        }
-
-
-                    }
-                });
-                Thread.Sleep(1000);
-
-
-            }
-        }
-        private bool Ping_(string ip)
-        {
-            Ping pingSender = new Ping();
-            PingOptions options = new PingOptions();
-
-            // Use the default Ttl value which is 128,
-            // but change the fragmentation behavior.
-            options.DontFragment = true;
-
-            // Create a buffer of 32 bytes of data to be transmitted.
-            string data = "test";
-            byte[] buffer = Encoding.ASCII.GetBytes(data);
-            int timeout = 120;
-            string address = ip;
-
-            PingReply reply = pingSender.Send(address, timeout, buffer, options);
-            if (reply.Status == IPStatus.Success)
-            {
-                return true;
-            }
-            else
-            {
-                //실패
-                return false;
-            }
-
-        }
-
         private void Btn_Mp3Play_Click(object sender, RoutedEventArgs e)
         {
             string s_url = "";
@@ -1340,6 +1230,95 @@ namespace JManager_Edge
                     }
                 }
             }
+        }
+
+        //스레드로 연속 재생
+        public Thread StartThread(string url, string id, string pw, string ip)
+        {
+            var t = new Thread(() => SendUrl(url, id, pw, ip));
+            t.Start();
+            return t;
+        }
+        private void Update_Device_Button()
+        {
+            //Devices 배열 기반으로 Button들 업데이트 하는 Thread
+
+            while (true)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    for (int i = 0; i < Btn_DeviceList.Length; i++)
+                    {
+
+                        if (deviceData.Devices[i] != null)
+                        {
+                            MaterialDesignThemes.Wpf.PackIcon packIcon = new MaterialDesignThemes.Wpf.PackIcon();
+                            switch (deviceData.Devices[i].Kind)
+                            {
+                                case (0): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Speaker; break;
+                                case (1): Btn_DeviceList[i].device_icon.Kind = PackIconKind.Cctv; break;
+                                case (2): Btn_DeviceList[i].device_icon.Kind = PackIconKind.MobileDevices; break;
+                                case (3): Btn_DeviceList[i].device_icon.Kind = PackIconKind.HelpCircleOutline; Btn_DeviceList[i].led_.color.Fill = Brushes.Gray; break;
+                            }
+
+                            //디바이스가 저장되어있음(등록 되어있음)
+                            if (deviceData.Devices[i].IP != "")
+                            {
+                                if (!Ping_(deviceData.Devices[i].IP))
+                                {
+                                    //디바이스가 연결 안되어있음
+                                    Btn_DeviceList[i].led_.color.Fill = Brushes.Orange;
+                                }
+                                else
+                                {
+                                    //디바이스가 연결 되어있음
+                                    Btn_DeviceList[i].led_.color.Fill = Brushes.Green;
+                                }
+                            }
+
+                            //Btn_DeviceList[i].device_icon.Kind = packIcon;
+                            Btn_DeviceList[i].device_name_box.Text = deviceData.Devices[i].Name;
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Device 정보를 불러오는데 실패했습니다. 오류");
+                        }
+
+
+                    }
+                });
+                Thread.Sleep(1000);
+
+
+            }
+        }
+        private bool Ping_(string ip)
+        {
+            Ping pingSender = new Ping();
+            PingOptions options = new PingOptions();
+
+            // Use the default Ttl value which is 128,
+            // but change the fragmentation behavior.
+            options.DontFragment = true;
+
+            // Create a buffer of 32 bytes of data to be transmitted.
+            string data = "test";
+            byte[] buffer = Encoding.ASCII.GetBytes(data);
+            int timeout = 120;
+            string address = ip;
+
+            PingReply reply = pingSender.Send(address, timeout, buffer, options);
+            if (reply.Status == IPStatus.Success)
+            {
+                return true;
+            }
+            else
+            {
+                //실패
+                return false;
+            }
+
         }
     }
     public class Schedule

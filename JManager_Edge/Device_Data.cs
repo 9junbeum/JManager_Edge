@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -51,7 +52,7 @@ namespace JManager_Edge
         }
 
 
-        public void Send_Url(string url, int arr_num)
+        public string Send_Url(string url, int arr_num)
         {
 
             string responseText = string.Empty;
@@ -68,16 +69,16 @@ namespace JManager_Edge
                 HttpStatusCode status = resp.StatusCode;
                 if (status == HttpStatusCode.OK)
                 {
-                    //Stream respStream = resp.GetResponseStream();
-                    //using (StreamReader sr = new StreamReader(respStream))
-                    //{
-                    //    responseText = sr.ReadToEnd();
-                    //    notification_window.Text += responseText;
-                    //}
+                    Stream respStream = resp.GetResponseStream();
+                    using (StreamReader sr = new StreamReader(respStream))
+                    {
+                        responseText = sr.ReadToEnd();
+                        return responseText;
+                    }
                 }
                 else
                 {
-
+                    return null;
                 }
             }
         }
