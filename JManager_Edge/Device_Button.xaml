@@ -32,7 +32,7 @@
                     <MenuItem Header="수정" Click="Mod_Device_Btn"/>
                     <MenuItem Header="수정" Click="Mod_Device_Btn"/>
                     <MenuItem Header="설정" Click="Set_Device_Btn"/>
-                    <MenuItem Header="설정" Click="Set_Device_Btn"/>
+                    <MenuItem Header="ㅇㅅㅇ" Click="Set_Device_Btn"/>
                     <MenuItem Header="삭제" Click="Del_Device_Btn"/>
                 </ContextMenu>
             </Button.ContextMenu>
