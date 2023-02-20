@@ -754,6 +754,7 @@ namespace JManager_Edge
                         if (Btn_DeviceList[j].BorderThickness == new Thickness(2))
                         {
                             deviceData.D_GrData[i] += j + ",";
+                            int aa = 0;
                         }
 
 
