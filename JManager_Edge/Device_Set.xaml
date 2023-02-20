@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:JManager_Edge"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="장치 설정" Height="450" Width="500" ResizeMode="NoResize">
+        Title="장치 설정" Height="400" Width="500" ResizeMode="NoResize">
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -15,18 +15,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="0">
-            <Viewbox HorizontalAlignment="Left" Margin="3">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Gain" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <Slider x:Name="gain_slider" Orientation="Horizontal" Width="150" Minimum="-95" Maximum="0" Value="-50" SmallChange="1" VerticalAlignment="Center" TickFrequency="1" Interval="1" IsSnapToTickEnabled="True"/>
-                    <TextBox Text="{Binding ElementName=gain_slider, Path=Value}" Width="40" IsReadOnly="True" Margin="3"/>
-                </StackPanel>
-            </Viewbox>
-        </Grid>
-        
-        <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
                 <StackPanel Orientation= "Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <Button Content="장치 재시작" Margin="3" Click="restart"/>
@@ -35,12 +29,20 @@
                 </StackPanel>
             </Viewbox>
         </Grid>
+
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Label Content="Gain" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
+                <Slider x:Name="gain_slider" Orientation="Vertical" HorizontalAlignment="Center" Height="200" Minimum="-95" Maximum="0" Value="-50" SmallChange="1" VerticalAlignment="Center" TickFrequency="1" Interval="1" IsSnapToTickEnabled="True"/>
+                <TextBox Text="{Binding ElementName=gain_slider, Path=Value}" Width="40" IsReadOnly="True" Margin="3"/>
+            </StackPanel>
+        </Grid>
         
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <TextBox x:Name="system_" Margin="5" Background="White" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         </Grid>
         
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="취소" Width="100" Margin="5" Click="close"/>
             </StackPanel>

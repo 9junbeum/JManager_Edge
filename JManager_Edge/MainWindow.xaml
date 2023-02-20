@@ -7,116 +7,120 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:JManager_Edge"
         mc:Ignorable="d"
-        Title="JManager Edge" Height="900" Width="1600" MinHeight="900" MinWidth="1000">
+        Title="JManager Edge" Height="900" Width="1600" MinHeight="900" MinWidth="1600">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="460"/>
+            <ColumnDefinition Width="470"/>
             <ColumnDefinition Width="11*"/>
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="Grid_Top" Grid.Row="0" Grid.ColumnSpan="2" Background="DimGray">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Label x:Name="Lb_Head" Content="(주)진명아이앤씨" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20"/>
-                <Label x:Name="Lb_Name" Content="JManager Edge 1.0" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20"/>
-                <Label x:Name="Lb_Date" Content="2000-00-00" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20"/>
-                <Label x:Name="Lb_Day" Content="Friday" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20"/>
-                <Label x:Name="Lb_Timer" Content="오후 00:00:00" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20"/>
+                <Label x:Name="Lb_Head" Content="(주)진명아이앤씨" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <Label x:Name="Lb_Name" Content="JManager Edge 1.0" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <Label x:Name="Lb_Date" Content="2000-00-00" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <Label x:Name="Lb_Day" Content="Friday" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <Label x:Name="Lb_Timer" Content="오후 00:00:00" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
             </StackPanel>
             <Button x:Name="Btn_Close" Content="종료" Margin="3" Width="70" HorizontalAlignment="Right" Click="Btn_Close_Click"/>
         </Grid>
-        <Grid x:Name="Grid_Mod" Grid.Row="1" Grid.ColumnSpan="2" Background="DarkSlateGray">
+        <Grid x:Name="Grid_Mod" Grid.Row="1" Grid.Column="1" Background="DarkSlateGray">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-            <Button x:Name="Btn_DRun" Content="운용모드" Width="100" Height="50" Click="Btn_DRun_Click" Margin="350,12,350,11"/>
-            <Button x:Name="Btn_DSchedule" Content="스케줄링" Width="100" Height="50" Click="Btn_DSchedule_Click" Margin="470,12,230,11"/>
-            <Button x:Name="Btn_DSetting" Content="장비설정" Width="100" Height="50" Click="Btn_DSetting_Click" Margin="586,12,114,11"/>
+                <Button x:Name="Btn_DRun" Content="홈" Width="150" Height="50" Click="Btn_DRun_Click" Margin="5" FontSize="20"/>
+                <Button x:Name="Btn_DSchedule" Content="스케줄링" Width="150" Height="50" Click="Btn_DSchedule_Click" Margin="5" FontSize="20"/>
+                <Button x:Name="Btn_DSetting" Content="그룹 설정" Width="150" Height="50" Click="Btn_DSetting_Click" Margin="5" FontSize="20"/>
+            </StackPanel>
         </Grid>
-        <Grid x:Name="Grid_DList" Grid.Row="2" Background="Gray">
+        <Grid x:Name="Grid_DList" Grid.Row="1" Grid.RowSpan="2" Background="Gray">
             <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="5">
                 <WrapPanel x:Name="WPanel_DList" Background="Transparent">
 
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="Grid_DRun" Grid.Row="2" Grid.Column="1" Visibility="Hidden">
+        <Grid x:Name="Grid_DRun" Grid.Row="2" Grid.Column="1" Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkColorKey}}"/>
             </Grid.Background>
-            <WrapPanel x:Name="WPanel_GR" Background="LightBlue" Orientation="Horizontal" HorizontalAlignment="Left" Width="560" Height="560" Margin="110,0,10,10">
-
-            </WrapPanel>
-            <ScrollViewer x:Name="Sview_MP3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left"  VerticalAlignment="Center" Height="564" Margin="780,0,10,10">
-                <WrapPanel x:Name="WPanel_MP3" Background="LightBlue" Width="300" Height="2000">
+            <StackPanel Orientation="Horizontal">
+                <WrapPanel x:Name="WPanel_GR" Background="White" Orientation="Horizontal" HorizontalAlignment="Left" Width="560" Height="560" Margin="10">
 
                 </WrapPanel>
-            </ScrollViewer>
-        </Grid>
-        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030">
-            <StackPanel x:Name="SPanel_List" Width="1000" Height="430" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,50,10,10" Background="Gray">
-                <ListView x:Name="LV_Schedule" FontSize="15" HorizontalAlignment="Center" Height="400" MouseDoubleClick="LV_Schedule_MouseDoubleClick" VerticalAlignment="Center" Margin="20,0,0,0" d:ItemsSource="{d:SampleData ItemCount=5}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="No" Width="50" DisplayMemberBinding="{Binding Number}"/>
-                            <GridViewColumn Header="예약명" Width="100" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="시작시간" Width="100" DisplayMemberBinding="{Binding StartTime}" />
-                            <GridViewColumn Header="종료시간" Width="100" DisplayMemberBinding="{Binding StopTime}" />
-                            <GridViewColumn Header="요일" Width="200" DisplayMemberBinding="{Binding Day}" />
-                            <GridViewColumn Header="곡명" Width="100" DisplayMemberBinding="{Binding MP3}" />
-                            <GridViewColumn Header="그룹" Width="300" DisplayMemberBinding="{Binding Group}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <ScrollViewer x:Name="Sview_MP3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left"  VerticalAlignment="Center" Height="564" Margin="10">
+                    <WrapPanel x:Name="WPanel_MP3" Background="White" Width="300">
+
+                    </WrapPanel>
+                </ScrollViewer>
+                <Button x:Name="Btn_Mp3Play" Content="▶" HorizontalAlignment="Left"  Margin="10" VerticalAlignment="Center" Width="200" Height="200" FontSize="25" Click="Btn_Mp3Play_Click" Background="LightGray" />
+
             </StackPanel>
-            <StackPanel x:Name="SPanel_SetSchedule" Width="1000" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,520,10,10">
-                <ScrollViewer x:Name="Sview_ScheduleGr" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="0,10,10,0">
-                    <WrapPanel x:Name="WPanel_ScheduleGr" Background="LightBlue" Width="200">
+            
+        </Grid>
+        
+        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030" Visibility="Hidden">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
 
-                    </WrapPanel>
-                </ScrollViewer>
-                <ScrollViewer x:Name="Sview_ScheduleMP3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="10,10,10,0">
-                    <WrapPanel x:Name="WPanel_ScheduleMP3" Background="LightBlue" Width="200">
-
-                    </WrapPanel>
-                </ScrollViewer>
-                <StackPanel Width="120" Height="300" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray">
-                    <Label x:Name="Lb_ScheduleName" Content="예약명 :" Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="0,10,0,0"/>
-                    <Label x:Name="Lb_ScheduleStartTime" Content="시작시간 : " Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="0,13,0,0"/>
-                    <Label x:Name="Lb_ScheduleStopTime" Content="종료시간 : " Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="0,13,0,0"/>
-                    <Label x:Name="Lb_ScheduleDay" Content="요일 :" Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="0,10,0,0"/>
+                <StackPanel x:Name="SPanel_List" Width="1000" Height="400" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Background="Gray">
+                    <ListView x:Name="LV_Schedule" FontSize="15" HorizontalAlignment="Center" Height="400" MouseDoubleClick="LV_Schedule_MouseDoubleClick" VerticalAlignment="Center" Margin="20,0,0,0" d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="No" Width="50" DisplayMemberBinding="{Binding Number}"/>
+                                <GridViewColumn Header="예약명" Width="100" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="시작시간" Width="100" DisplayMemberBinding="{Binding StartTime}" />
+                                <GridViewColumn Header="종료시간" Width="100" DisplayMemberBinding="{Binding StopTime}" />
+                                <GridViewColumn Header="요일" Width="200" DisplayMemberBinding="{Binding Day}" />
+                                <GridViewColumn Header="곡명" Width="100" DisplayMemberBinding="{Binding MP3}" />
+                                <GridViewColumn Header="그룹" Width="300" DisplayMemberBinding="{Binding Group}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </StackPanel>
-                <StackPanel Width="400" Height="300" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray">
-                    <TextBox x:Name="Txt_ScheduleName" TextWrapping="Wrap" Text="" Width="225" Height="40" HorizontalAlignment="Left" FontSize="25" Margin="0,5,0,5"/>
-                    <StackPanel Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Gray">
-                        <ComboBox x:Name="Cb_Start_H" Width="100" Height="40" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Start_H_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                        <Label x:Name="Lb_Start_H" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-                        <ComboBox x:Name="Cb_Start_M" Width="100" Height="40" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Start_M_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                        <Label x:Name="Lb_Start_M" Content="M" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-                        <ComboBox x:Name="Cb_Start_S" Width="100" Height="40" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Start_S_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                        <Label x:Name="Lb_Start_S" Content="S" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                <StackPanel x:Name="SPanel_SetSchedule" Width="1000" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5">
+                    <ScrollViewer x:Name="Sview_ScheduleGr" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="0,10,10,0">
+                        <WrapPanel x:Name="WPanel_ScheduleGr" Background="LightBlue" Width="200"/>
+                    </ScrollViewer>
+                    <ScrollViewer x:Name="Sview_ScheduleMP3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="10,10,10,0">
+                        <WrapPanel x:Name="WPanel_ScheduleMP3" Background="LightBlue" Width="200"/>
+                    </ScrollViewer>
+                    <StackPanel Width="120" Height="300" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray">
+                        <Label x:Name="Lb_ScheduleName" Content="예약명 :" Height="40" Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="5" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                        <Label x:Name="Lb_ScheduleStartTime" Content="시작시간 : " Height="40" Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="5" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                        <Label x:Name="Lb_ScheduleStopTime" Content="종료시간 : " Height="40" Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="5" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                        <Label x:Name="Lb_ScheduleDay" Content="요일 :" Height="40" Width="100" HorizontalContentAlignment="Right" FontSize="20" Margin="5" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
                     </StackPanel>
-                    <StackPanel Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Gray">
-                        <ComboBox x:Name="Cb_Stop_H" Width="100" Height="40" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="Cb_Stop_H_SelectionChanged"/>
-                        <Label x:Name="Lb_Stop_H" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-                        <ComboBox x:Name="Cb_Stop_M" Width="100" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" SelectionChanged="Cb_Stop_M_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                        <Label x:Name="Lb_Stop_M" Content="M" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-                        <ComboBox x:Name="Cb_Stop_S" Width="100" Height="40" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Stop_S_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                        <Label x:Name="Lb_Stop_S" Content="S" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-                    </StackPanel>
-                    <StackPanel x:Name="SPanel_Day" Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Gray">
+                    <StackPanel Width="400" Height="300" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray">
+                        <TextBox x:Name="Txt_ScheduleName" TextWrapping="Wrap" Text="" Width="225" Height="40" HorizontalAlignment="Left" FontSize="25" Margin="5"/>
+                        <StackPanel Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Gray">
+                            <ComboBox x:Name="Cb_Start_H" Width="100" Height="40" FontSize="25" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Start_H_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Label x:Name="Lb_Start_H" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                            <ComboBox x:Name="Cb_Start_M" Width="100" Height="40" FontSize="25"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Start_M_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Label x:Name="Lb_Start_M" Content="M" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                            <ComboBox x:Name="Cb_Start_S" Width="100" Height="40" FontSize="25"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Start_S_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Label x:Name="Lb_Start_S" Content="S" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                        </StackPanel>
+                        <StackPanel Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Gray">
+                            <ComboBox x:Name="Cb_Stop_H" Width="100" Height="40" FontSize="25" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="Cb_Stop_H_SelectionChanged"/>
+                            <Label x:Name="Lb_Stop_H" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                            <ComboBox x:Name="Cb_Stop_M" Width="100" Height="40" FontSize="25" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Stop_M_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Label x:Name="Lb_Stop_M" Content="M" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                            <ComboBox x:Name="Cb_Stop_S" Width="100" Height="40" FontSize="25" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="Cb_Stop_S_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Label x:Name="Lb_Stop_S" Content="S" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="0" Background="Transparent" BorderBrush="Transparent"/>
+                        </StackPanel>
+                        <StackPanel x:Name="SPanel_Day" Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Gray"/>
+                        <StackPanel Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray" Margin="10">
+                            <Button x:Name="Btn_Add" Content="추가" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" Click="Btn_Add_Click" Margin="5"/>
+                            <Button x:Name="Btn_Modify" Content="수정" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" Click="Btn_Modify_Click" Margin="5"/>
+                            <Button x:Name="Btn_Delete" Content="삭제" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" Click="Btn_Delete_Click" Margin="5"/>
 
-
-                    </StackPanel>
-                    <StackPanel Width="400" Height="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray">
-                        <Button x:Name="Btn_Add" Content="추가" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" Click="Btn_Add_Click"/>
-                        <Button x:Name="Btn_Modify" Content="수정" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" Margin="10,0,10,0" Click="Btn_Modify_Click"/>
-                        <Button x:Name="Btn_Delete" Content="삭제" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50" Click="Btn_Delete_Click"/>
-
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

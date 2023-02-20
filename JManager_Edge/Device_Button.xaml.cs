@@ -33,7 +33,15 @@ namespace JManager_Edge
         private void left_Btn(object sender, RoutedEventArgs e)
         {
             //Button_.BorderThickness = BorderThicknessPro;
-            Button_.BorderBrush = Brushes.Red ;
+            if(Button_.BorderBrush == Brushes.Red)
+            {
+                Button_.BorderBrush = Brushes.Transparent;
+            }
+            else
+            {
+                Button_.BorderBrush = Brushes.Red;
+            }
+                
         }
 
         private void Add_Device_Btn(object sender, RoutedEventArgs e)

@@ -43,6 +43,7 @@ namespace JManager_Edge
         bool b_Timer = false;
         bool b_Day = false;
         int i_TimerIndex = -1;
+        int i_Mp3Index = -1;
 
         public MainWindow()
         {
@@ -355,7 +356,7 @@ namespace JManager_Edge
         {
             string s_url = "http://" + id + ":" + pw + "@" + ip + url;
             string responseText = string.Empty;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(s_url);
             request.Method = "GET";
             request.UseDefaultCredentials = true;
             request.PreAuthenticate = true;
@@ -442,6 +443,27 @@ namespace JManager_Edge
         private void Btn_MainMP3_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
+
+            for (int i = 0; i < Btn_MainMP3.Length; i++)
+            {
+                if (Btn_MainMP3[i] == btn)
+                {
+                    if (Btn_MainMP3[i].Background == Brushes.LightGray)
+                    {
+                        Btn_MainMP3[i].Background = Brushes.Red;
+                        i_Mp3Index = i;
+                    }
+                    else if (Btn_MainMP3[i].Background == Brushes.Red)
+                    {
+                        Btn_MainMP3[i].Background = Brushes.LightGray;
+                        i_Mp3Index = -1;
+                    }
+                }
+                else
+                {
+                    Btn_MainMP3[i].Background = Brushes.LightGray;
+                }
+            }
         }
 
         private void Btn_ScheduleMP3_Click(object sender, EventArgs e)
@@ -612,8 +634,7 @@ namespace JManager_Edge
 
                         for (int j = 0; j < Btn_DeviceList.Length; j++)
                         {
-                            Btn_DeviceList[j].BorderThickness = new Thickness(1);
-                            Btn_DeviceList[j].BorderBrush = Brushes.Black;
+                            Btn_DeviceList[j].Button_.BorderBrush = Brushes.Transparent;
                         }
 
                         if (deviceData.D_GrData[i] != null)
@@ -673,8 +694,7 @@ namespace JManager_Edge
             Grid_DSetting.Visibility = Visibility.Hidden;
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                Btn_DeviceList[i].BorderThickness = new Thickness(1);
-                Btn_DeviceList[i].BorderBrush = Brushes.Black;
+                Btn_DeviceList[i].Button_.BorderBrush = Brushes.Transparent;
             }
             for (int i = 0; i < Btn_MainGR.Length; i++)
             {
@@ -696,13 +716,12 @@ namespace JManager_Edge
             Grid_DSetting.Visibility = Visibility.Visible;
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                Btn_DeviceList[i].BorderThickness = new Thickness(1);
-                Btn_DeviceList[i].BorderBrush = Brushes.Black;
+                Btn_DeviceList[i].BorderBrush = Brushes.Transparent;
             }
             for (int i = 0; i < Btn_SetGR.Length; i++)
             {
-                //Btn_SetGR[i].BorderThickness = new Thickness(1);
-                //Btn_SetGR[i].BorderBrush = Brushes.Black;
+                Btn_SetGR[i].BorderThickness = new Thickness(1);
+                Btn_SetGR[i].BorderBrush = Brushes.Black;
                 Btn_SetGR[i].Background = Brushes.LightGray;
             }
         }
@@ -711,7 +730,9 @@ namespace JManager_Edge
         {
             //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=play&clip=0";
             //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
+            //저장해야지
 
+            // 스레드 close.            Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button)); 
             this.Close();
 
         }
@@ -1264,7 +1285,66 @@ namespace JManager_Edge
 
         }
 
+        private void Btn_Mp3Play_Click(object sender, RoutedEventArgs e)
+        {
+            string s_url = "";
+            string s_ID = "";
+            string s_PW = "";
+            string s_IP = "";
+            //Btn_DeviceList[j].
 
+            if (Btn_Mp3Play.Background == Brushes.LightGray)
+            {
+                for (int i = 0; i < Btn_DeviceList.Length; i++)
+                {
+                    if (deviceData.Devices[i].Kind == 0)
+                    {
+                        if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
+                        {
+                            if (i_Mp3Index != -1)
+                            {
+                                //Thread 추가로 동시 실행
+                                s_ID = deviceData.Devices[i].ID;
+                                s_PW = deviceData.Devices[i].PW;
+                                s_IP = deviceData.Devices[i].IP;
+                                s_url = "/axis-cgi/mediaclip.cgi?action=play&clip=" + i_Mp3Index;
+                                StartThread(s_url, s_ID, s_PW, s_IP);
+                                Btn_Mp3Play.Background = Brushes.Orange;
+                                Btn_Mp3Play.Content = "■";
+                            }
+                            else
+                            {
+                                MessageBox.Show("음원을 선택해 주세요!");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
+                        Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
+                    }
+                }
+            }
+            else if (Btn_Mp3Play.Background == Brushes.Orange)
+            {
+                for (int i = 0; i < Btn_DeviceList.Length; i++)
+                {
+                    if (deviceData.Devices[i].Kind == 0)
+                    {
+                        if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
+                        {
+                            s_ID = deviceData.Devices[i].ID;
+                            s_PW = deviceData.Devices[i].PW;
+                            s_IP = deviceData.Devices[i].IP;
+                            s_url = "/axis-cgi/mediaclip.cgi?action=stop";
+                            StartThread(s_url, s_ID, s_PW, s_IP);
+                            Btn_Mp3Play.Background = Brushes.LightGray;
+                            Btn_Mp3Play.Content = "▶";
+                        }
+                    }
+                }
+            }
+        }
     }
     public class Schedule
     {
