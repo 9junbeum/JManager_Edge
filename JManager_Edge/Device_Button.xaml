@@ -30,6 +30,7 @@
                 <ContextMenu>
                     <MenuItem Header="추가" Click="Add_Device_Btn"/>
                     <MenuItem Header="수정" Click="Mod_Device_Btn"/>
+                    <MenuItem Header="수정" Click="Mod_Device_Btn"/>
                     <MenuItem Header="설정" Click="Set_Device_Btn"/>
                     <MenuItem Header="삭제" Click="Del_Device_Btn"/>
                 </ContextMenu>
