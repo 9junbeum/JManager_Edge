@@ -643,8 +643,8 @@ namespace JManager_Edge
                             pars = deviceData.D_GrData[i].Split(',');
                             for (int j = 0; j < (pars.Length - 1); j++)
                             {
-                                Btn_DeviceList[Int32.Parse(pars[j])].BorderThickness = new Thickness(2);
-                                Btn_DeviceList[Int32.Parse(pars[j])].BorderBrush = Brushes.Red;
+                                Btn_DeviceList[Int32.Parse(pars[j])].Button_.BorderThickness = new Thickness(2);
+                                Btn_DeviceList[Int32.Parse(pars[j])].Button_.BorderBrush = Brushes.Red;
                             }
 
                         }
