@@ -139,8 +139,9 @@ namespace JManager_Edge
             for (int i = 0; i < Btn_MainGR.Length; i++)
             {
                 Btn_MainGR[i] = new Button();
-                Btn_MainGR[i].Width = 140;
-                Btn_MainGR[i].Height = 140;
+                Btn_MainGR[i].Width = 120;
+                Btn_MainGR[i].Height = 165;
+                Btn_MainGR[i].FontSize = 20;
 
                 Btn_MainGR[i].HorizontalAlignment = HorizontalAlignment.Left;
                 Btn_MainGR[i].VerticalAlignment = VerticalAlignment.Top;

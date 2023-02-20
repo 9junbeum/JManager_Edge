@@ -35,10 +35,12 @@ namespace JManager_Edge
             //Button_.BorderThickness = BorderThicknessPro;
             if(Button_.BorderBrush == Brushes.Red)
             {
-                Button_.BorderBrush = Brushes.Transparent;
+                Button_.BorderThickness = new Thickness(1);
+                Button_.BorderBrush = Brushes.Black;
             }
             else
             {
+                Button_.BorderThickness = new Thickness(2);
                 Button_.BorderBrush = Brushes.Red;
             }
                 
