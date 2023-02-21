@@ -7,7 +7,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:JManager_Edge"
         mc:Ignorable="d"
-        Title="JManager Edge" Height="900" Width="1600" MinHeight="900" MinWidth="1600">
+        WindowState="Maximized" WindowStyle="None"
+        Title="JManager Edge" Height="1080" Width="1920" MinHeight="1080" MinWidth="1920">
+    <!--리스트뷰 스타일-->
     <Window.Resources>
         <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -27,13 +29,13 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
 
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="470"/>
@@ -62,7 +64,7 @@
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="Grid_DRun" Grid.Row="2" Grid.Column="1" Visibility="Hidden" Background="#303030">
+        <Grid x:Name="Grid_DRun" Grid.Row="2" Grid.Column="1" Visibility="Visible" Background="#303030">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
@@ -103,7 +105,7 @@
             
         </Grid>
         
-        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030" Visibility="Visible">
+        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030" Visibility="Collapsed">
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
 
                 <Grid x:Name="SPanel_List" Width="1000" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Background="Gray">

@@ -188,15 +188,23 @@ namespace JManager_Edge
                         {
                             if(device_PW.Password != String.Empty)
                             {
-
-                                MessageBoxResult messageboxresult = MessageBox.Show("다음과 같은 내용으로 새로운 장치를 등록합니다.\n" + "IP주소 :" + ip_address_.Text + "\n장치 이름 :" + name_.Text + "\n장치 종류 :" + kind_.SelectionBoxItem, "저장", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-                                if (messageboxresult == MessageBoxResult.OK)
+                                if(deviceData.is_exist(ip_address_.Text))
                                 {
-                                    Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Password);
-                                    deviceData.Devices[device_num] = new_device;
-                                    this.Close();
+                                    MessageBox.Show("같은 장치가 등록되어있습니다. \n 장치는 한번만 등록할 수 있습니다.");
                                 }
+                                else
+                                {
+                                    MessageBoxResult messageboxresult = MessageBox.Show("다음과 같은 내용으로 새로운 장치를 등록합니다.\n" + "IP주소 :" + ip_address_.Text + "\n장치 이름 :" + name_.Text + "\n장치 종류 :" + kind_.SelectionBoxItem, "저장", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+                                    if (messageboxresult == MessageBoxResult.OK)
+                                    {
+                                        Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Password);
+                                        deviceData.Devices[device_num] = new_device;
+                                        this.Close();
+                                    }
+
+                                }
+
                             }
                             else
                             {

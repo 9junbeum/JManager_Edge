@@ -82,5 +82,18 @@ namespace JManager_Edge
                 }
             }
         }
+
+        public bool is_exist(string ip)
+        {
+            for(int i = 0; i < Devices.Length;i++)
+            {
+                if(Devices[i].IP == ip)
+                {
+                    return true;
+                    //같은게 이미 등록되어있다는 의미
+                }
+            }
+            return false;
+        }
     }
 }

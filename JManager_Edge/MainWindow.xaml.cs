@@ -34,7 +34,7 @@ namespace JManager_Edge
         Button[] Btn_MainMP3 = new Button[20];
         Button[] Btn_ScheduleMP3 = new Button[20];
         Button[] Btn_ScheduleDay = new Button[7];
-        Device_Button[] Btn_DeviceList = new Device_Button[48];
+        Device_Button[] Btn_DeviceList = new Device_Button[60];
 
         Device_Data deviceData = Device_Data.instance;
         DispatcherTimer timer;
@@ -187,21 +187,10 @@ namespace JManager_Edge
 
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                /*
-                Btn_DeviceList[i] = new Button();
-                Btn_DeviceList[i].Width = 140;
-                Btn_DeviceList[i].Height = 95;
-
-                Btn_DeviceList[i].HorizontalAlignment = HorizontalAlignment.Left;
-                Btn_DeviceList[i].VerticalAlignment = VerticalAlignment.Top;
-                //Btn_MainGR.Margin = new Thickness(iPosX, iPosY, 0, 0);
-                Btn_DeviceList[i].Name = "Btn_DeviceList" + (i + 1);
-                Btn_DeviceList[i].Content = "" + (i + 1);
-                Btn_DeviceList[i].BorderBrush = Brushes.Black;
-                Btn_DeviceList[i].Click += new RoutedEventHandler(Btn_DeviceList_Click);
-                */
+                //구준범이 만든 버튼
                 Btn_DeviceList[i] = new Device_Button(i);
-
+                Btn_DeviceList[i].MouseLeftButtonDown += new MouseButtonEventHandler(Device_Btn_down);
+                Btn_DeviceList[i].MouseLeftButtonUp += new MouseButtonEventHandler(Device_Btn_up);
                 WPanel_DList.Children.Add(Btn_DeviceList[i]);
             }
 
@@ -235,6 +224,21 @@ namespace JManager_Edge
             {
                 deviceData.Devices[i] = new Device("", "", 3, "", "");
             }
+        }
+
+        //위치 변경 위해 새로 만듬
+        public void Device_Btn_down(object sender, MouseButtonEventArgs args)
+        {
+            //
+        }
+        public void Device_Btn_up(object sender, MouseButtonEventArgs args)
+        {
+            //같은 위치일 때
+
+
+            //다른 위치일 때
+
+
         }
 
         private void Timer_Tick(object sender, EventArgs e)
