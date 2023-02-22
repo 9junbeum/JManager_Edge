@@ -6,28 +6,46 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:JManager_Edge"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="150">
+             d:DesignHeight="100" d:DesignWidth="100">
 
-    <Grid x:Name="mother_grid" Width="150" Height="150">
-        <Button x:Name="Button_" Background="LightGray" BorderBrush="Black" BorderThickness="1" Click="left_Btn" Height="148" Width="148" Padding="0">
-            <Grid Height="148" Width="148" Background="Transparent">
+    <Grid x:Name="mother_grid" Width="50" Height="50">
+        <Button x:Name="Button_" Background="LightGray" BorderBrush="Black" BorderThickness="1" Click="left_Btn" Padding="0"
+                Height="{Binding Width, RelativeSource={RelativeSource self}}"
+                Width="{Binding Height, RelativeSource={RelativeSource self}}"
+                
+                >
+            <Grid Background="Transparent" 
+                  Width="{Binding ElementName=Button_, Path=ActualWidth}"
+                  Height="{Binding ElementName=Button_, Path=ActualHeight}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
 
-                <local:LED_Indicator x:Name="led_" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"/>
-                <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <!--led-->
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Viewbox>
+                        <local:LED_Indicator x:Name="led_" Width="11" Height="11" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"/>
+                    </Viewbox>
+                </Grid>
+                <!--메인 icon-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Viewbox>
                         <materialDesign:PackIcon x:Name="device_icon" Kind="HelpCircleOutline" />
                     </Viewbox>
                 </Grid>
-                <Grid Background="Transparent" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid Background="Transparent" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <TextBlock x:Name="device_name_box" Text="" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
                 </Grid>
             </Grid>
             <Button.ContextMenu>
                 <ContextMenu>
+                    <!-- 추가 없애야함-->
                     <MenuItem Header="추가" Click="Add_Device_Btn"/>
                     <MenuItem Header="수정" Click="Mod_Device_Btn"/>
                     <MenuItem Header="설정" Click="Set_Device_Btn"/>

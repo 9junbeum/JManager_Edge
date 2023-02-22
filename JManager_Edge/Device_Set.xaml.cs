@@ -33,7 +33,7 @@ namespace JManager_Edge
         private void restart(object sender, RoutedEventArgs e)
         {
         //장치 재시작
-            string url = "http://" + deviceData.Devices[arr_num].IP + "/axis-cgi/restart.cgi"; 
+            string url = "http://" + deviceData.Devices[arr_num].IP + "/axis-cgi/restart.cgi";
             deviceData.Send_Url(url, arr_num);
             system_.Text += "장치가 재부팅 됩니다.\n";
         }

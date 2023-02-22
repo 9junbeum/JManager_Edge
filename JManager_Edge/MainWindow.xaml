@@ -32,24 +32,29 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/> <!--상단 바-->
+            <RowDefinition Height="40"/> <!--메뉴 바-->
+            <RowDefinition Height="*"/>  <!--주 기능-->
+            <RowDefinition Height="30"/> <!--하단 바-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="470"/>
-            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="460"/> <!--장치 리스트 넓이-->
+            <ColumnDefinition Width="11*"/> <!--주 기능-->
         </Grid.ColumnDefinitions>
-
+        
+        <!--상단 바-->
         <Grid x:Name="Grid_Top" Grid.Row="0" Grid.ColumnSpan="2" Background="DimGray">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Label x:Name="Lb_Head" Content="(주)진명아이앤씨" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <!--로고-->
+                <Image Source="/Resources/Main_LOGO.png" Margin="5"/>
+                <!--프로그램 명-->
                 <Label x:Name="Lb_Name" Content="JManager Edge 1.0" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
-                
             </StackPanel>
+            <!--종료 버튼-->
             <Button x:Name="Btn_Close" Content="종료" Margin="3" Width="70" HorizontalAlignment="Right" Click="Btn_Close_Click"/>
         </Grid>
+        
+        <!--메뉴 바-->
         <Grid x:Name="Grid_Mod" Grid.Row="1" Grid.Column="1" Background="#304060">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button x:Name="Btn_DRun" Content="홈" Width="100" Padding="0" Click="Btn_DRun_Click" Margin="5"  FontSize="15"/>
@@ -57,73 +62,88 @@
                 <Button x:Name="Btn_DSetting" Content="그룹 설정" Width="100" Padding="0" Click="Btn_DSetting_Click" Margin="5" FontSize="15"/>
             </StackPanel>
         </Grid>
+        
+        <!--장치 리스트 (왼쪽)-->
         <Grid x:Name="Grid_DList" Grid.Row="1" Grid.RowSpan="2" Background="Gray">
             <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="5">
-                <WrapPanel x:Name="WPanel_DList" Background="Transparent">
-                    <!--카메라, 스피커 등 장치 리스트-->
-                </WrapPanel>
+                <Viewbox>
+                    <UniformGrid x:Name="WPanel_DList" Columns="4" Background="Transparent">
+                        <!--카메라, 스피커 등 장치 리스트-->
+                    </UniformGrid>
+                </Viewbox>
             </ScrollViewer>
         </Grid>
+        
+        <!--홈 메뉴-->
         <Grid x:Name="Grid_DRun" Grid.Row="2" Grid.Column="1" Visibility="Visible" Background="#303030">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="320"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid Width="1200" Height="800" >
 
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Viewbox>
-                    <Label Content="1. 그룹 선택" Background="Transparent" BorderThickness="1" Foreground="White" Margin="3"/>
-                </Viewbox>
-            </Grid>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Viewbox>
-                    <Label Content="2. 음원 선택" Background="Transparent" BorderThickness="1" Foreground="White" Margin="3"/>
-                </Viewbox>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="320"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            </Grid>
+                <Border Grid.Row="1" Grid.Column="0" CornerRadius="20" Padding="0" Margin="10" Background="#2f2f2f">
 
-            <Grid Grid.Row="1" Grid.Column="0">
-                <UniformGrid x:Name="WPanel_GR" Background="White" Rows="4" Columns="4" Margin="10" Width="480" Height="660"/>
-            </Grid>
+                </Border>
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Viewbox>
+                        <Label Content="1. 그룹 선택" Background="Transparent" BorderThickness="1" Foreground="White" Margin="3"/>
+                    </Viewbox>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Viewbox>
+                        <Label Content="2. 음원 선택" Background="Transparent" BorderThickness="1" Foreground="White" Margin="3"/>
+                    </Viewbox>
 
-            <Grid Grid.Row="1" Grid.Column="1">
+                </Grid>
 
-                <ScrollViewer x:Name="Sview_MP3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="10" Width="300" Height="660">
-                    <WrapPanel x:Name="WPanel_MP3" Background="White" />
-                </ScrollViewer>
-            </Grid>
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <UniformGrid x:Name="WPanel_GR" Background="White" Rows="4" Columns="4" Margin="10" Width="480" Height="660"/>
+                </Grid>
 
-            <Grid Grid.Row="1" Grid.Column="2">
-                <Button x:Name="Btn_Mp3Play" Content="재생" HorizontalAlignment="Left"  Margin="10" VerticalAlignment="Center" Width="200" Height="200" FontSize="25" Click="Btn_Mp3Play_Click" Background="LightGray" />
+                <Grid Grid.Row="1" Grid.Column="1">
+
+                    <ScrollViewer x:Name="Sview_MP3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="10" Width="300" Height="660">
+                        <WrapPanel x:Name="WPanel_MP3" Background="White" />
+                    </ScrollViewer>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="2">
+                    <Button x:Name="Btn_Mp3Play" Content="재생" HorizontalAlignment="Left"  Margin="10" VerticalAlignment="Center" Width="200" Height="200" FontSize="25" Click="Btn_Mp3Play_Click" Background="LightGray" />
+                </Grid>
             </Grid>
 
             
         </Grid>
-        
-        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030" Visibility="Collapsed">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
 
-                <Grid x:Name="SPanel_List" Width="1000" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Background="Gray">
-                    <ListView x:Name="LV_Schedule" FontSize="15" HorizontalAlignment="Center" Height="390" MouseDoubleClick="LV_Schedule_MouseDoubleClick" VerticalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="5">
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
-                                <GridViewColumn Header="No" Width="55" DisplayMemberBinding="{Binding Number}"/>
-                                <GridViewColumn Header="예약명" Width="100" DisplayMemberBinding="{Binding Name}" />
-                                <GridViewColumn Header="시작시간" Width="100" DisplayMemberBinding="{Binding StartTime}" />
-                                <GridViewColumn Header="종료시간" Width="100" DisplayMemberBinding="{Binding StopTime}" />
-                                <GridViewColumn Header="요일" Width="70" DisplayMemberBinding="{Binding Day}" />
-                                <GridViewColumn Header="곡명" Width="350" DisplayMemberBinding="{Binding MP3}" />
-                                <GridViewColumn Header="그룹" Width="200" DisplayMemberBinding="{Binding Group}" />
-                            </GridView>
-                            
-                        </ListView.View>
-                    </ListView>
-                </Grid>
+        <!--스케줄링 메뉴-->
+        <Grid x:Name="Grid_DSchedule" Grid.Row="2" Grid.Column="1" Background="#303030" Visibility="Hidden">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <Border x:Name="asd" CornerRadius="40" Background="Gray"  ClipToBounds="True">
+                    <Grid x:Name="SPanel_List" Width="1300" Height="500" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15" >
+                        <ListView x:Name="LV_Schedule" FontSize="15" HorizontalAlignment="Center" Height="390" MouseDoubleClick="LV_Schedule_MouseDoubleClick" VerticalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="5">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
+                                    <GridViewColumn Header="No" Width="55" DisplayMemberBinding="{Binding Number}"/>
+                                    <GridViewColumn Header="예약명" Width="100" DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn Header="시작시간" Width="100" DisplayMemberBinding="{Binding StartTime}" />
+                                    <GridViewColumn Header="종료시간" Width="100" DisplayMemberBinding="{Binding StopTime}" />
+                                    <GridViewColumn Header="요일" Width="70" DisplayMemberBinding="{Binding Day}" />
+                                    <GridViewColumn Header="곡명" Width="350" DisplayMemberBinding="{Binding MP3}" />
+                                    <GridViewColumn Header="그룹" Width="200" DisplayMemberBinding="{Binding Group}" />
+                                </GridView>
+
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Border>
                 <StackPanel x:Name="SPanel_SetSchedule" Width="1000" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5">
                     <ScrollViewer x:Name="Sview_ScheduleGr" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center"  Height="300" VerticalAlignment="Top" Margin="5">
                         <WrapPanel x:Name="WPanel_ScheduleGr" Background="White" Width="200"/>
@@ -165,14 +185,13 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+
+        <!--설정 메뉴-->
         <Grid x:Name="Grid_DSetting" Grid.Row="2" Grid.Column="1" Visibility="Hidden" Background="#303030">
             <WrapPanel x:Name="WPanel_SetGR" Background="LightBlue" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment ="Center"  Width="700" Height="420" Margin="0,0,0,100">
 
             </WrapPanel>
-            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="383" Orientation="Horizontal" Margin="0,0,0,50">
-                <StackPanel.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
-                </StackPanel.Background>
+            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="383" Orientation="Horizontal" Margin="0,0,0,50" >
                 <TextBox x:Name="Txt_GrName" TextWrapping="Wrap" Text="" Width="300" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" />
                 <Button x:Name="Btn_GrSet" Content="설정" Height="50" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="Btn_GrSet_Click">
                     <Button.BorderBrush>
@@ -182,11 +201,18 @@
             </StackPanel>
         </Grid>
 
+        <!--하단 바-->
         <Grid x:Name="Grid_Bot" Grid.Row="3" Grid.ColumnSpan="2" Background="LightGray">
+            <!--시간-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <Label x:Name="Lb_Date" Content="2000-00-00" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
                 <Label x:Name="Lb_Day" Content="Friday" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
                 <Label x:Name="Lb_Timer" Content="오후 00:00:00" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+            </StackPanel>
+            <!--하단 진명로고-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Image Source="/Resources/LOGO.png" Margin="3" HorizontalAlignment="Right"/>
+                <Image Source="/Resources/Text_LOGO.png" Margin="3"/>
             </StackPanel>
         </Grid>
 
