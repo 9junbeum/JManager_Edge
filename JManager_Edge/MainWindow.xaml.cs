@@ -36,6 +36,7 @@ namespace JManager_Edge
         Button[] Btn_ScheduleDay = new Button[7];
         Device_Button[] Btn_DeviceList = new Device_Button[60];
 
+        save_settings ss = new save_settings();
         Device_Data deviceData = Device_Data.instance;
         DispatcherTimer timer;
 
@@ -710,8 +711,10 @@ namespace JManager_Edge
         private void Btn_Close_Click(object sender, RoutedEventArgs e)
         {
             //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=play&clip=0";
-            string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
+            //string url = "http://root:pass@192.168.21.195/axis-cgi/mediaclip.cgi?action=stop";
             //SendUrl(url);
+
+            ss.SAVE_devices();
         }
 
         private void Btn_GrSet_Click(object sender, RoutedEventArgs e)
@@ -1184,60 +1187,82 @@ namespace JManager_Edge
             string s_PW = "";
             string s_IP = "";
             //Btn_DeviceList[j].
-
-            if (Btn_Mp3Play.Background == Brushes.LightGray)
+            for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                for (int i = 0; i < Btn_DeviceList.Length; i++)
+                if (deviceData.Devices[i].Kind == 0)
                 {
-                    if (deviceData.Devices[i].Kind == 0)
+                    if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
                     {
-                        if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
-                        {
-                            if (i_Mp3Index != -1)
-                            {
-                                //Thread 추가로 동시 실행
-                                s_ID = deviceData.Devices[i].ID;
-                                s_PW = deviceData.Devices[i].PW;
-                                s_IP = deviceData.Devices[i].IP;
-                                s_url = "/axis-cgi/mediaclip.cgi?action=play&clip=" + i_Mp3Index;
-                                StartThread(s_url, s_ID, s_PW, s_IP);
-                                Btn_Mp3Play.Background = Brushes.Orange;
-                                Btn_Mp3Play.Content = "■";
-                            }
-                            else
-                            {
-                                MessageBox.Show("음원을 선택해 주세요!");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
-                        Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
+                        s_ID = deviceData.Devices[i].ID;
+                        s_PW = deviceData.Devices[i].PW;
+                        s_IP = deviceData.Devices[i].IP;
+                        s_url = "/axis-cgi/mediaclip.cgi?action=stop";
+                        StartThread(s_url, s_ID, s_PW, s_IP);
+                        //Btn_Mp3Play.Background = Brushes.LightGray;
+                        //Btn_Mp3Play.Content = "▶";
                     }
                 }
             }
-            else if (Btn_Mp3Play.Background == Brushes.Orange)
+            for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
-                for (int i = 0; i < Btn_DeviceList.Length; i++)
+                if (deviceData.Devices[i].Kind == 0)
                 {
-                    if (deviceData.Devices[i].Kind == 0)
+                    if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
                     {
-                        if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
+                        if (i_Mp3Index != -1)
                         {
+                            //Thread 추가로 동시 실행
                             s_ID = deviceData.Devices[i].ID;
                             s_PW = deviceData.Devices[i].PW;
                             s_IP = deviceData.Devices[i].IP;
-                            s_url = "/axis-cgi/mediaclip.cgi?action=stop";
+                            s_url = "/axis-cgi/mediaclip.cgi?action=play&clip=" + i_Mp3Index;
                             StartThread(s_url, s_ID, s_PW, s_IP);
-                            Btn_Mp3Play.Background = Brushes.LightGray;
-                            Btn_Mp3Play.Content = "▶";
+                            //Btn_Mp3Play.Background = Brushes.Orange;
+                            //Btn_Mp3Play.Content = "■";
+                        }
+                        else
+                        {
+                            MessageBox.Show("음원을 선택해 주세요!");
                         }
                     }
                 }
+                else
+                {
+                    Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
+                    Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
+                }
             }
+
         }
 
+        private void Btn_Mp3Stop_Click(object sender, RoutedEventArgs e)
+        {
+            string s_url = "";
+            string s_ID = "";
+            string s_PW = "";
+            string s_IP = "";
+            //Btn_DeviceList[j].
+
+            
+            
+            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            {
+                if (deviceData.Devices[i].Kind == 0)
+                {
+                    if (Btn_DeviceList[i].Button_.BorderBrush == Brushes.Red)
+                    {
+                        s_ID = deviceData.Devices[i].ID;
+                        s_PW = deviceData.Devices[i].PW;
+                        s_IP = deviceData.Devices[i].IP;
+                        s_url = "/axis-cgi/mediaclip.cgi?action=stop";
+                        StartThread(s_url, s_ID, s_PW, s_IP);
+                        //Btn_Mp3Play.Background = Brushes.LightGray;
+                        //Btn_Mp3Play.Content = "▶";
+                    }
+                }
+            }
+            
+        }
         //스레드로 연속 재생
         public Thread StartThread(string url, string id, string pw, string ip)
         {
@@ -1326,6 +1351,7 @@ namespace JManager_Edge
             }
 
         }
+
     }
     public class Schedule
     {

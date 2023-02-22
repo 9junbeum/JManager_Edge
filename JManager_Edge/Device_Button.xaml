@@ -6,14 +6,12 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:JManager_Edge"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
+             d:DesignHeight="50" d:DesignWidth="50">
 
-    <Grid x:Name="mother_grid" Width="50" Height="50">
+    <Grid x:Name="mother_grid" MinWidth="50" MinHeight="50">
         <Button x:Name="Button_" Background="LightGray" BorderBrush="Black" BorderThickness="1" Click="left_Btn" Padding="0"
                 Height="{Binding Width, RelativeSource={RelativeSource self}}"
-                Width="{Binding Height, RelativeSource={RelativeSource self}}"
-                
-                >
+                Width="{Binding Height, RelativeSource={RelativeSource self}}">
             <Grid Background="Transparent" 
                   Width="{Binding ElementName=Button_, Path=ActualWidth}"
                   Height="{Binding ElementName=Button_, Path=ActualHeight}">
@@ -40,9 +38,12 @@
                     </Viewbox>
                 </Grid>
                 <Grid Background="Transparent" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <TextBlock x:Name="device_name_box" Text="" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                    <TextBlock x:Name="device_name_box" Text="" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="8" Margin="0,0,0,1"/>
                 </Grid>
             </Grid>
+            
+            
+            
             <Button.ContextMenu>
                 <ContextMenu>
                     <!-- 추가 없애야함-->

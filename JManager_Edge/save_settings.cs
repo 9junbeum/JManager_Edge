@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Windows;
+using System.Net;
 
 namespace JManager_Edge
 {
@@ -41,11 +42,27 @@ namespace JManager_Edge
         {
             Device[] devices = deviceData.Devices;
 
-            for(int i = 0; i < devices.Length ;i++)
+            try
             {
-                save_obj.Add(devices[i]);
-            }
+                for (int i = 0; i < devices.Length; i++)
+                {
+                    JObject newjobj = new JObject(
+                        new JProperty("obj_ip", devices[i].IP),
+                        new JProperty("obj_name", devices[i].Name),
+                        new JProperty("obj_kind", devices[i].Kind),
+                        new JProperty("obj_id", devices[i].ID),
+                        new JProperty("obj_pw", devices[i].PW)
+                        );
 
+
+                    save_obj.Add(newjobj);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                System.Windows.MessageBox.Show(ex.Message);
+            }
             File.WriteAllText(save_path, save_obj.ToString());
 
         }
