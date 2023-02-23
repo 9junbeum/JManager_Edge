@@ -8,10 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="150">
     
-    <Grid x:Name="mother_grid" Width="150" Height="150">
+    <Grid Width="150" Height="150">
         <Viewbox>
-            <Button x:Name="Button_" Background="#30303030" BorderBrush="Transparent" BorderThickness="1" Click="Button__Click" Padding="0"
-                Height="150" Width="150">
+            <Button x:Name="Button" Background="#a0a0a0" BorderBrush="Transparent" BorderThickness="1" Click="Button__Click" Padding="0" Height="150" Width="150">
                 <Grid Background="Transparent" Width="150" Height="150">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"/>

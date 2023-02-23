@@ -47,7 +47,7 @@ namespace JManager_Edge
 
         public void SAVE_devices()
         {
-            Device[] devices = deviceData.Devices;
+            List<Device> devices = deviceData.Devices;
 
             try
             {
@@ -57,7 +57,7 @@ namespace JManager_Edge
                 save_id.Clear();
                 save_pw.Clear();
 
-                for (int i = 0; i < devices.Length; i++)
+                for (int i = 0; i < devices.Count; i++)
                 {
                     save_ip.Add(devices[i].IP);
                     save_name.Add(devices[i].Name);
@@ -87,9 +87,9 @@ namespace JManager_Edge
             {
                 string json = File.ReadAllText(save_path);
                 JObject jobj = JObject.Parse(json);
-                Device[] devices = deviceData.Devices;
+                List<Device> devices = deviceData.Devices;
 
-                for (int i = 0; i < devices.Length; i++)
+                for (int i = 0; i < devices.Count; i++)
                 {
                     this.deviceData.Devices[i].IP = jobj["obj_ip"][i].ToString();
                     this.deviceData.Devices[i].Name = jobj["obj_name"][i].ToString();

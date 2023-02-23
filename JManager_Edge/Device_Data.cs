@@ -13,7 +13,7 @@ namespace JManager_Edge
     {
         static Device_Data _instance = null; //Singleton Pattern
 
-        public Device[] Devices = new Device[60]; //장치들 담는 배열 선언
+        public List<Device> Devices = new List<Device>(); //장치들 담는 배열 선언
         public string[] D_GrData = new string[15]; //장치 관리하는 그룹 데이터 변수(15칸) 설정.
 
         public static Device_Data instance
@@ -85,12 +85,15 @@ namespace JManager_Edge
 
         public bool is_exist(string ip)
         {
-            for(int i = 0; i < Devices.Length;i++)
+            for (int i = 0; i < Devices.Count; i++)
             {
-                if(Devices[i].IP == ip)
+                if (Devices[i] != null)
                 {
-                    return true;
-                    //같은게 이미 등록되어있다는 의미
+                    if (Devices[i].IP == ip)
+                    {
+                        return true;
+                        //같은게 이미 등록되어있다는 의미
+                    }
                 }
             }
             return false;

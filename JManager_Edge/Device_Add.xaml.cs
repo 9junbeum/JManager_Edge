@@ -202,7 +202,7 @@ namespace JManager_Edge
                                         if (messageboxresult == MessageBoxResult.OK)
                                         {
                                             Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Password);
-                                            deviceData.Devices[device_num] = new_device;
+                                            deviceData.Devices.Add(new_device);
                                             this.Close();
                                         }
 

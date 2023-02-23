@@ -29,7 +29,7 @@ namespace JManager_Edge
         private void Button__Click(object sender, RoutedEventArgs e)
         {
             //장치 추가
-            Device_Add add_device = new Device_Add(device.Devices.Length);
+            Device_Add add_device = new Device_Add(device.Devices.Count);
             add_device.ShowDialog();
             //디바이스 설정 저장(Singleton Pattern)
         }

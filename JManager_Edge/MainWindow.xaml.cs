@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Collections;
 
 namespace JManager_Edge
 {
@@ -34,7 +35,9 @@ namespace JManager_Edge
         Button[] Btn_MainMP3 = new Button[20];
         Button[] Btn_ScheduleMP3 = new Button[20];
         Button[] Btn_ScheduleDay = new Button[7];
+        ArrayList mylist = new ArrayList();
         Device_Button[] Btn_DeviceList = new Device_Button[60];
+        //Device_Button[] Btn_DeviceList = new Device_Button[60];
 
         save_settings ss = new save_settings();
         Device_Data deviceData = Device_Data.instance;
@@ -480,7 +483,7 @@ namespace JManager_Edge
                         if (Btn_MainGR[i].Background == Brushes.LightGray)
                         {
                             Btn_MainGR[i].Background = Brushes.Red;
-                            for (int j = 0; j < (Btn_DeviceList.Length); j++)
+                            for (int j = 0; j < (Btn_DeviceList.Length - 1); j++)
                             {
                                 Btn_DeviceList[j].Button_.BorderThickness = new Thickness(2);
                                 Btn_DeviceList[j].Button_.BorderBrush = Brushes.Red;
@@ -489,7 +492,7 @@ namespace JManager_Edge
                         else if (Btn_MainGR[i].Background == Brushes.Red)
                         {
                             Btn_MainGR[i].Background = Brushes.LightGray;
-                            for (int j = 0; j < (Btn_DeviceList.Length); j++)
+                            for (int j = 0; j < (Btn_DeviceList.Length - 1); j++)
                             {
                                 Btn_DeviceList[j].Button_.BorderThickness = new Thickness(1);
                                 Btn_DeviceList[j].Button_.BorderBrush = Brushes.Black;
@@ -614,7 +617,7 @@ namespace JManager_Edge
                         Btn_SetGR[i].Background = Brushes.Red;
                         Txt_GrName.Text = (string)Btn_SetGR[i].Content;
 
-                        for (int j = 0; j < Btn_DeviceList.Length; j++)
+                        for (int j = 0; j < Btn_DeviceList.Length - 1; j++)
                         {
                             Btn_DeviceList[j].Button_.BorderThickness = new Thickness(1);
                             Btn_DeviceList[j].Button_.BorderBrush = Brushes.Black;
@@ -675,7 +678,7 @@ namespace JManager_Edge
             Grid_DRun.Visibility = Visibility.Visible;
             Grid_DSchedule.Visibility = Visibility.Hidden;
             Grid_DSetting.Visibility = Visibility.Hidden;
-            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            for (int i = 0; i < Btn_DeviceList.Length - 1; i++)
             {
                 Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
                 Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
@@ -698,7 +701,7 @@ namespace JManager_Edge
             Grid_DRun.Visibility = Visibility.Hidden;
             Grid_DSchedule.Visibility = Visibility.Hidden;
             Grid_DSetting.Visibility = Visibility.Visible;
-            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            for (int i = 0; i < Btn_DeviceList.Length - 1; i++)
             {
                 Btn_DeviceList[i].Button_.BorderThickness = new Thickness(1);
                 Btn_DeviceList[i].Button_.BorderBrush = Brushes.Black;
@@ -731,7 +734,7 @@ namespace JManager_Edge
                     Btn_SetGR[i].Content = Txt_GrName.Text;
                     SelGr = true;
 
-                    for (int j = 0; j < Btn_DeviceList.Length; j++)
+                    for (int j = 0; j < Btn_DeviceList.Length - 1; j++)
                     {
                         if (Btn_DeviceList[j].Button_.BorderThickness == new Thickness(2))
                         {
@@ -1188,7 +1191,7 @@ namespace JManager_Edge
             string s_PW = "";
             string s_IP = "";
             //Btn_DeviceList[j].
-            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            for (int i = 0; i < Btn_DeviceList.Length - 1; i++)
             {
                 if (deviceData.Devices[i].Kind == 0)
                 {
@@ -1204,7 +1207,7 @@ namespace JManager_Edge
                     }
                 }
             }
-            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            for (int i = 0; i < Btn_DeviceList.Length - 1; i++)
             {
                 if (deviceData.Devices[i].Kind == 0)
                 {
@@ -1246,7 +1249,7 @@ namespace JManager_Edge
 
             
             
-            for (int i = 0; i < Btn_DeviceList.Length; i++)
+            for (int i = 0; i < Btn_DeviceList.Length - 1; i++)
             {
                 if (deviceData.Devices[i].Kind == 0)
                 {
@@ -1279,11 +1282,13 @@ namespace JManager_Edge
             {
                 Dispatcher.Invoke(() =>
                 {
-                    for (int i = 0; i < Btn_DeviceList.Length; i++)
+                    WPanel_DList.Children.Clear();
+                    for (int i = 0; i < deviceData.Devices.Count; i++)
                     {
-
                         if (deviceData.Devices[i] != null)
                         {
+                            Btn_DeviceList[i] = new Device_Button(i);
+                            WPanel_DList.Children.Add(Btn_DeviceList[i]);
                             MaterialDesignThemes.Wpf.PackIcon packIcon = new MaterialDesignThemes.Wpf.PackIcon();
                             switch (deviceData.Devices[i].Kind)
                             {
@@ -1319,6 +1324,7 @@ namespace JManager_Edge
 
 
                     }
+                    WPanel_DList.Children.Add(new Device_Add_Button());
 
                 });
                 Thread.Sleep(1000);

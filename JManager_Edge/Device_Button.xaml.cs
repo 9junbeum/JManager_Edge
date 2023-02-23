@@ -22,7 +22,6 @@ namespace JManager_Edge
     {
         Device_Data deviceData = Device_Data.instance;
         private int arr_num;
-        MaterialDesignThemes.Wpf.PackIcon pi = null; //나중에 사라질 것
 
         public Device_Button(int i)
         {
