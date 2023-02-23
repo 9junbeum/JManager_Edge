@@ -737,8 +737,6 @@ namespace JManager_Edge
                     }
                     Group_Update();
                 }
-
-
             }
 
             if (SelGr == false)
