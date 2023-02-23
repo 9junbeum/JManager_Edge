@@ -184,11 +184,11 @@ namespace JManager_Edge
                     //종류가 선택되었는지 확인
                     if (kind_.SelectedIndex != -1)
                     {
-                        if(device_ID.Text != String.Empty)
+                        if(device_ID.Text != String.Empty || kind_.SelectedIndex != 0)
                         {
-                            if(device_PW.Password != String.Empty)
+                            if(device_PW.Password != String.Empty || kind_.SelectedIndex != 0)
                             {
-                                if(verify_led.color.Fill != Brushes.Red)
+                                if(verify_led.color.Fill != Brushes.Red || kind_.SelectedIndex != 0)
                                 {
                                     if (deviceData.is_exist(ip_address_.Text))
                                     {
@@ -243,6 +243,22 @@ namespace JManager_Edge
         private void Cancel_Btn(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void kind__SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(kind_ != null)
+            {
+                if(kind_.SelectedIndex != 0)
+                {
+                    //스피커가 아니면
+                    IDPW_Grid.IsEnabled = false;
+                }
+                else
+                {
+                    IDPW_Grid.IsEnabled = true;
+                }
+            }
         }
     }
 }

@@ -28,7 +28,7 @@
             </Viewbox>
         </Grid>
         
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" x:Name="IDPW_Grid">
             <Viewbox HorizontalAlignment="Left" Margin="3">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="ID" Width="50" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
@@ -49,7 +49,7 @@
                     <TextBox x:Name="name_" Text="테스트" Width="150" VerticalContentAlignment="Center"/>
                     <Grid Width="20"/>
                     <Label Content="종류" Width="40" HorizontalContentAlignment="Center" BorderBrush="Transparent" Background="Transparent" Padding="0"/>
-                    <ComboBox x:Name="kind_" Width="100" SelectedIndex="0">
+                    <ComboBox x:Name="kind_" Width="100" SelectedIndex="0" SelectionChanged="kind__SelectionChanged">
                         <ComboBoxItem Content="스피커" Tag="0"/>
                         <ComboBoxItem Content="카메라" Tag="1"/>
                         <ComboBoxItem Content="기타" Tag="2"/>
