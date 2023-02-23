@@ -48,10 +48,10 @@ namespace JManager_Edge
         public MainWindow()
         {
             InitializeComponent();
+            //ss.LOAD_devices();//저장된 설정 불러오기
             Init();
             Add_Btn();
-            //ss.LOAD_devices();//저장된 설정 불러오기
-            Init_Devices();
+            // Init_Devices(); 버튼 생성될때마다 추가되므로 필요없음
 
             Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button));
             watch_device_data_change_thread.Start();
@@ -185,7 +185,7 @@ namespace JManager_Edge
                 Btn_SetGR[i].Click += new RoutedEventHandler(Btn_SetGR_Click);
                 WPanel_SetGR.Children.Add(Btn_SetGR[i]);
             }
-
+            /*
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
                 //구준범이 만든 버튼
@@ -194,6 +194,9 @@ namespace JManager_Edge
                 Btn_DeviceList[i].MouseLeftButtonUp += new MouseButtonEventHandler(Device_Btn_up);
                 WPanel_DList.Children.Add(Btn_DeviceList[i]);
             }
+            */
+            WPanel_DList.Children.Add(new Device_Add_Button());
+
 
             for (int i = 0; i < Btn_ScheduleDay.Length; i++)
             {
@@ -1311,11 +1314,12 @@ namespace JManager_Edge
                         }
                         else
                         {
-                            MessageBox.Show("Device 정보를 불러오는데 실패했습니다. 오류");
+                            //MessageBox.Show("Device 정보를 불러오는데 실패했습니다. 오류");
                         }
 
 
                     }
+
                 });
                 Thread.Sleep(1000);
 

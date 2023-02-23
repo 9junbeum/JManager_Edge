@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JManager_Edge"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="150" d:DesignWidth="150">
+    
+    <Grid x:Name="mother_grid" Width="150" Height="150">
+        <Viewbox>
+            <Button x:Name="Button_" Background="#30303030" BorderBrush="Transparent" BorderThickness="1" Click="Button__Click" Padding="0"
+                Height="150" Width="150">
+                <Grid Background="Transparent" Width="150" Height="150">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--메인 icon-->
+                    <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Viewbox>
+                            <materialDesign:PackIcon x:Name="device_icon" Kind="Add" />
+                        </Viewbox>
+                    </Grid>
+                    <Grid Background="Transparent" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150">
+                        <TextBlock Text="새 장치 추가" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="1" FontWeight="Bold"/>
+                    </Grid>
+                </Grid>
+            </Button>
+        </Viewbox>
     </Grid>
 </UserControl>

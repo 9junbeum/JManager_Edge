@@ -20,9 +20,18 @@ namespace JManager_Edge
     /// </summary>
     public partial class Device_Add_Button : UserControl
     {
+        Device_Data device = Device_Data.instance;
         public Device_Add_Button()
         {
             InitializeComponent();
+        }
+
+        private void Button__Click(object sender, RoutedEventArgs e)
+        {
+            //장치 추가
+            Device_Add add_device = new Device_Add(device.Devices.Length);
+            add_device.ShowDialog();
+            //디바이스 설정 저장(Singleton Pattern)
         }
     }
 }

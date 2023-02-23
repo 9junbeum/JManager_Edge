@@ -26,9 +26,11 @@ namespace JManager_Edge
 
         public Device_Button(int i)
         {
-            InitializeComponent(); 
+            InitializeComponent();
             arr_num = i;
+
         }
+
 
         private void left_Btn(object sender, RoutedEventArgs e)
         {

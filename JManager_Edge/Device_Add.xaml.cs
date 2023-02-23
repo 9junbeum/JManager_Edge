@@ -53,7 +53,7 @@ namespace JManager_Edge
 
                 for (int times = 0; times < 4; times++)
                 {
-                      PingReply reply = pingSender.Send(address, timeout, buffer, options); 
+                    PingReply reply = pingSender.Send(address, timeout, buffer, options); 
                     string str = string.Empty;
                     if (reply.Status == IPStatus.Success)
                     {
