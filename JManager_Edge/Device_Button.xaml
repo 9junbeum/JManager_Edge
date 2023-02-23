@@ -6,53 +6,53 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:JManager_Edge"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="50">
+             d:DesignHeight="150" d:DesignWidth="150">
 
-    <Grid x:Name="mother_grid" MinWidth="50" MinHeight="50">
-        <Button x:Name="Button_" Background="LightGray" BorderBrush="Black" BorderThickness="1" Click="left_Btn" Padding="0"
-                Height="{Binding Width, RelativeSource={RelativeSource self}}"
-                Width="{Binding Height, RelativeSource={RelativeSource self}}">
-            <Grid Background="Transparent" 
+    <Grid x:Name="mother_grid" Width="150" Height="150">
+        <Viewbox>
+            <Button x:Name="Button_" Background="LightGray" BorderBrush="Black" BorderThickness="0.5" Click="left_Btn" Padding="0"
+                Height="150" Width="150">
+                <Grid Background="Transparent" 
                   Width="{Binding ElementName=Button_, Path=ActualWidth}"
                   Height="{Binding ElementName=Button_, Path=ActualHeight}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="5*"/>
-                </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
 
-                <!--led-->
-                <Grid Grid.Row="0" Grid.Column="0">
-                    <Viewbox>
-                        <local:LED_Indicator x:Name="led_" Width="11" Height="11" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"/>
-                    </Viewbox>
+                    <!--led-->
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <local:LED_Indicator x:Name="led_" Width="15" Height="15" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <!--메인 icon-->
+                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Viewbox>
+                            <materialDesign:PackIcon x:Name="device_icon" Kind="HelpCircleOutline" />
+                        </Viewbox>
+                    </Grid>
+                    <Grid Background="Transparent" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                          Width="150" Height="30">
+                        <TextBlock x:Name="device_name_box" Text="dd" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="1"/>
+                    </Grid>
                 </Grid>
-                <!--메인 icon-->
-                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <Viewbox>
-                        <materialDesign:PackIcon x:Name="device_icon" Kind="HelpCircleOutline" />
-                    </Viewbox>
-                </Grid>
-                <Grid Background="Transparent" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <TextBlock x:Name="device_name_box" Text="" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="8" Margin="0,0,0,1"/>
-                </Grid>
-            </Grid>
-            
-            
-            
-            <Button.ContextMenu>
-                <ContextMenu>
-                    <!-- 추가 없애야함-->
-                    <MenuItem Header="추가" Click="Add_Device_Btn"/>
-                    <MenuItem Header="수정" Click="Mod_Device_Btn"/>
-                    <MenuItem Header="설정" Click="Set_Device_Btn"/>
-                    <MenuItem Header="삭제" Click="Del_Device_Btn"/>
-                </ContextMenu>
-            </Button.ContextMenu>
-        </Button>
+
+
+
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <!-- 추가 없애야함-->
+                        <MenuItem Header="추가" Click="Add_Device_Btn"/>
+                        <MenuItem Header="수정" Click="Mod_Device_Btn"/>
+                        <MenuItem Header="설정" Click="Set_Device_Btn"/>
+                        <MenuItem Header="삭제" Click="Del_Device_Btn"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+        </Viewbox>
     </Grid>
 </UserControl>

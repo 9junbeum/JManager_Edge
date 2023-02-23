@@ -38,7 +38,7 @@
             <RowDefinition Height="30"/> <!--하단 바-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="460"/> <!--장치 리스트 넓이-->
+            <ColumnDefinition Width="610"/> <!--장치 리스트 넓이-->
             <ColumnDefinition Width="11*"/> <!--주 기능-->
         </Grid.ColumnDefinitions>
         

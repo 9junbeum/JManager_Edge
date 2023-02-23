@@ -19,6 +19,13 @@ namespace JManager_Edge
         //Device_Data
         Device_Data deviceData = Device_Data.instance;
 
+        //저장할 데이터
+        List<string> save_ip = new List<string>();
+        List<string> save_name = new List<string>();
+        List<int> save_kind = new List<int>();
+        List<string> save_id = new List<string>();
+        List<string> save_pw = new List<string>();
+
 
         public bool is_savefile_exist()
         {
@@ -44,30 +51,60 @@ namespace JManager_Edge
 
             try
             {
+                save_ip.Clear();
+                save_name.Clear();
+                save_kind.Clear();
+                save_id.Clear();
+                save_pw.Clear();
+
                 for (int i = 0; i < devices.Length; i++)
                 {
-                    JObject newjobj = new JObject(
-                        new JProperty("obj_ip", devices[i].IP),
-                        new JProperty("obj_name", devices[i].Name),
-                        new JProperty("obj_kind", devices[i].Kind),
-                        new JProperty("obj_id", devices[i].ID),
-                        new JProperty("obj_pw", devices[i].PW)
-                        );
-
-
-                    save_obj.Add(newjobj);
+                    save_ip.Add(devices[i].IP);
+                    save_name.Add(devices[i].Name);
+                    save_kind.Add(devices[i].Kind);
+                    save_id.Add(devices[i].ID);
+                    save_pw.Add(devices[i].PW);
                 }
+                JObject newjobj = new JObject(
+                    new JProperty("obj_ip", save_ip),
+                    new JProperty("obj_name", save_name),
+                    new JProperty("obj_kind", save_kind),
+                    new JProperty("obj_id", save_id),
+                    new JProperty("obj_pw", save_pw)
+                    );
+                File.WriteAllText(save_path, newjobj.ToString());
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 System.Windows.MessageBox.Show(ex.Message);
             }
-            File.WriteAllText(save_path, save_obj.ToString());
-
         }
 
+        public void LOAD_devices()
+        {
+            try
+            {
+                string json = File.ReadAllText(save_path);
+                JObject jobj = JObject.Parse(json);
+                Device[] devices = deviceData.Devices;
 
+                for (int i = 0; i < devices.Length; i++)
+                {
+                    this.deviceData.Devices[i].IP = jobj["obj_ip"][i].ToString();
+                    this.deviceData.Devices[i].Name = jobj["obj_name"][i].ToString();
+                    this.deviceData.Devices[i].Kind = int.Parse(jobj["obj_kind"][i].ToString());
+                    this.deviceData.Devices[i].ID = jobj["obj_id"][i].ToString();
+                    this.deviceData.Devices[i].PW = jobj["obj_pw"][i].ToString();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
     }
 }
