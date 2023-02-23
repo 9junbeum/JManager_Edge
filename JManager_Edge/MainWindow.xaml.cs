@@ -50,7 +50,7 @@ namespace JManager_Edge
             InitializeComponent();
             Init();
             Add_Btn();
-            ss.LOAD_devices();//저장된 설정 불러오기
+            //ss.LOAD_devices();//저장된 설정 불러오기
             Init_Devices();
 
             Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button));

@@ -150,7 +150,7 @@ namespace JManager_Edge
                             //    responseText = sr.ReadToEnd();
                             //    notification_window.Text += responseText;
                             //}
-
+                            verify_led.color.Fill = Brushes.Green;
                             notification_window.Text += "연결에 성공했습니다.";
                         }
                         else
@@ -188,21 +188,28 @@ namespace JManager_Edge
                         {
                             if(device_PW.Password != String.Empty)
                             {
-                                if(deviceData.is_exist(ip_address_.Text))
+                                if(verify_led.color.Fill != Brushes.Red)
                                 {
-                                    MessageBox.Show("같은 장치가 등록되어있습니다. \n 장치는 한번만 등록할 수 있습니다.");
+                                    if (deviceData.is_exist(ip_address_.Text))
+                                    {
+                                        MessageBox.Show("같은 장치가 등록되어있습니다. \n 장치는 한번만 등록할 수 있습니다.");
+                                    }
+                                    else
+                                    {
+                                        MessageBoxResult messageboxresult = MessageBox.Show("다음과 같은 내용으로 새로운 장치를 등록합니다.\n" + "IP주소 :" + ip_address_.Text + "\n장치 이름 :" + name_.Text + "\n장치 종류 :" + kind_.SelectionBoxItem, "저장", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+                                        if (messageboxresult == MessageBoxResult.OK)
+                                        {
+                                            Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Password);
+                                            deviceData.Devices[device_num] = new_device;
+                                            this.Close();
+                                        }
+
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBoxResult messageboxresult = MessageBox.Show("다음과 같은 내용으로 새로운 장치를 등록합니다.\n" + "IP주소 :" + ip_address_.Text + "\n장치 이름 :" + name_.Text + "\n장치 종류 :" + kind_.SelectionBoxItem, "저장", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-                                    if (messageboxresult == MessageBoxResult.OK)
-                                    {
-                                        Device new_device = new Device(ip_address_.Text, name_.Text, kind_.SelectedIndex, device_ID.Text, device_PW.Password);
-                                        deviceData.Devices[device_num] = new_device;
-                                        this.Close();
-                                    }
-
+                                    MessageBox.Show("아이디 비밀번호 검증을 통해 로그인을 확인해주세요.");
                                 }
 
                             }

@@ -37,6 +37,7 @@
                     <PasswordBox x:Name="device_PW" Width="100" VerticalContentAlignment="Center" PasswordChar="*" />
                     <Grid Width="10"/>
                     <Button Content="검증" Click="verify_login"/>
+                    <local:LED_Indicator x:Name="verify_led" Width="15" Height="15" Margin="4"/>
                 </StackPanel>
             </Viewbox>
         </Grid>
