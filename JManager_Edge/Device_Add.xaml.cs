@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignColors.Recommended;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -151,20 +152,20 @@ namespace JManager_Edge
                             //    notification_window.Text += responseText;
                             //}
                             verify_led.color.Fill = Brushes.Green;
-                            notification_window.Text += "연결에 성공했습니다.";
+                            notification_window.Text += "연결에 성공했습니다.\n";
                         }
                         else
                         {
-                            notification_window.Text += "오류가 발생했습니다.";
+                            notification_window.Text += "오류가 발생했습니다.\n";
                             notification_window.Text += status.ToString();
                         }
-                    });
+                    });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                 }
             }
             catch(Exception ex)
             {
                 notification_window.Text += ex.Message +"\n";
-                notification_window.Text += "입력하신 아이디, 비밀번호를 확인해주세요";
+                notification_window.Text += "입력하신 아이디, 비밀번호를 확인해주세요\n";
             }
         }
 
@@ -259,6 +260,31 @@ namespace JManager_Edge
                     IDPW_Grid.IsEnabled = true;
                 }
             }
+        }
+
+        private void ip_address__TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //검증상태일때,
+            if (verify_led != null)
+            {
+                if (verify_led.color.Fill == Brushes.Green)
+                {
+                    verify_led.color.Fill = Brushes.Red;
+                }
+            }
+        }
+
+        private void device_PW_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            //검증상태일때,
+            if (verify_led != null)
+            {
+                if (verify_led.color.Fill == Brushes.Green)
+                {
+                    verify_led.color.Fill = Brushes.Red;
+                }
+            }
+
         }
     }
 }
