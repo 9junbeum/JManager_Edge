@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Onvif;
 
 namespace JManager_Edge
 {
@@ -22,7 +23,9 @@ namespace JManager_Edge
     {
         Device_Data deviceData = Device_Data.instance;
         private int arr_num;
-        MaterialDesignThemes.Wpf.PackIcon pi = null; //나중에 사라질 것
+
+        public delegate void Camera_Selected(string rtsp_addr);
+        public event Camera_Selected camera_selected;
 
         public Device_Button(int i)
         {
@@ -42,6 +45,16 @@ namespace JManager_Edge
             {
                 Button_.BorderThickness = new Thickness(2);
                 Button_.BorderBrush = Brushes.Red;
+            }
+
+
+            if (deviceData.Devices[arr_num].Kind == 1)
+            {
+                //카메라 라면,
+
+                find_rtsp
+                string rtsp_addr = "";
+                camera_selected(rtsp_addr);
             }
                 
         }

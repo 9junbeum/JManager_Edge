@@ -51,7 +51,7 @@ namespace JManager_Edge
             Init();
             Add_Btn();
             //ss.LOAD_devices();//저장된 설정 불러오기
-            Init_Devices();
+            Init_UI();
 
             Thread watch_device_data_change_thread = new Thread(new ThreadStart(Update_Device_Button));
             watch_device_data_change_thread.Start();
@@ -192,7 +192,7 @@ namespace JManager_Edge
                 Btn_DeviceList[i] = new Device_Button(i);
                 Btn_DeviceList[i].MouseLeftButtonDown += new MouseButtonEventHandler(Device_Btn_down);
                 Btn_DeviceList[i].MouseLeftButtonUp += new MouseButtonEventHandler(Device_Btn_up);
-                WPanel_DList.Children.Add(Btn_DeviceList[i]);
+                Device_Uniform_List.Children.Add(Btn_DeviceList[i]);
             }
 
             for (int i = 0; i < Btn_ScheduleDay.Length; i++)
@@ -218,13 +218,17 @@ namespace JManager_Edge
             Btn_ScheduleDay[5].Content = "토";
             Btn_ScheduleDay[6].Content = "일";
         }
-        private void Init_Devices()
+        private void Init_UI()
         {
-            //Devices null값 오류 방지를 위해 kind 3으로 초기화(3은 등록되지 않은 상태임.)
+            //저장 데이터로부터 UI 초기화 하는 작업
             for (int i = 0; i < Btn_DeviceList.Length; i++)
             {
                 deviceData.Devices[i] = new Device("", "", 3, "", "");
             }
+            //장치 list 보기방식
+            int column = 2;
+
+
         }
 
         //위치 변경 위해 새로 만듬
@@ -244,9 +248,10 @@ namespace JManager_Edge
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Lb_Timer.Content = DateTime.Now.ToLongTimeString();
-            Lb_Day.Content = DateTime.Now.DayOfWeek.ToString();
-            Lb_Date.Content = DateTime.Now.ToShortDateString();
+            //Lb_Timer.Content = DateTime.Now.ToLongTimeString();
+            //Lb_Day.Content = DateTime.Now.DayOfWeek.ToString();
+            //Lb_Date.Content = DateTime.Now.ToShortDateString(); 
+            System_Date_Time.Content = DateTime.Now.ToString("yyyy-MM-dd dddd tt hh:mm:ss");
 
             string s_Url = "";
             string[] s_Parse;
@@ -271,7 +276,7 @@ namespace JManager_Edge
 
                     if (b_Timer == false)
                     {
-                        if (b_Day == true)
+                        if (b_Day == true) 
                         {
                             b_Timer = true;
                             i_TimerIndex = i;
@@ -1348,6 +1353,31 @@ namespace JManager_Edge
                 return false;
             }
 
+        }
+
+        private void device_list_rows_selection_changed(object sender, SelectionChangedEventArgs e)
+        {
+            //장치 list 열 개수 변경
+            //2개씩 보기, 3개씩 보기, 4개씩 보기
+            ComboBox cb = sender as ComboBox;
+            if(Device_Uniform_List != null)
+            {
+                switch (cb.SelectedIndex)
+                {
+                    case 0:
+                        //2개씩 보기
+                        Device_Uniform_List.Columns = 2;
+                        break;
+                    case 1:
+                        //3개씩 보기
+                        Device_Uniform_List.Columns = 3;
+                        break;
+                    case 2:
+                        //4개씩 보기
+                        Device_Uniform_List.Columns = 4;
+                        break;
+                }
+            }
         }
 
     }

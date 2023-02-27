@@ -32,14 +32,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/> <!--상단 바-->
-            <RowDefinition Height="40"/> <!--메뉴 바-->
+            <RowDefinition Height="70"/> <!--상단 바-->
+            <RowDefinition Height="50"/> <!--메뉴 바-->
             <RowDefinition Height="*"/>  <!--주 기능-->
             <RowDefinition Height="30"/> <!--하단 바-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="610"/> <!--장치 리스트 넓이-->
-            <ColumnDefinition Width="11*"/> <!--주 기능-->
+            <ColumnDefinition Width="Auto"/> <!--장치 리스트 넓이-->
+            <ColumnDefinition Width="*"/> <!--주 기능-->
         </Grid.ColumnDefinitions>
         
         <!--상단 바-->
@@ -48,7 +48,7 @@
                 <!--로고-->
                 <Image Source="/Resources/Main_LOGO.png" Margin="5"/>
                 <!--프로그램 명-->
-                <Label x:Name="Lb_Name" Content="JManager Edge 1.0" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <Label x:Name="Lb_Name" Content="New JManager" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
             </StackPanel>
             <!--종료 버튼-->
             <Button x:Name="Btn_Close" Content="종료" Margin="3" Width="70" HorizontalAlignment="Right" Click="Btn_Close_Click"/>
@@ -62,12 +62,20 @@
                 <Button x:Name="Btn_DSetting" Content="그룹 설정" Width="100" Padding="0" Click="Btn_DSetting_Click" Margin="5" FontSize="15"/>
             </StackPanel>
         </Grid>
-        
+
+        <Grid Grid.Row="1" Background="#4a4a4a">
+            <Label Height="40" Content=" 장치 List" Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="25" Padding="0" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="Device_list_column_ComboBox" HorizontalAlignment="Right" Width="150" SelectedIndex="0" SelectionChanged="device_list_rows_selection_changed" Margin="5" Background="LightGray" FontSize="15">
+                <ComboBoxItem Content="2열 보기" Tag="0"/>
+                <ComboBoxItem Content="3열 보기" Tag="1"/>
+                <ComboBoxItem Content="4열 보기" Tag="2"/>
+            </ComboBox>
+        </Grid>
         <!--장치 리스트 (왼쪽)-->
-        <Grid x:Name="Grid_DList" Grid.Row="1" Grid.RowSpan="2" Background="Gray">
+        <Grid x:Name="Grid_DList" Grid.Row="2" Background="Gray">
             <ScrollViewer x:Name="Sview_DList" VerticalScrollBarVisibility="Auto" Margin="5">
                 <Viewbox>
-                    <UniformGrid x:Name="WPanel_DList" Columns="4" Background="Transparent">
+                    <UniformGrid x:Name="Device_Uniform_List" Background="Transparent">
                         <!--카메라, 스피커 등 장치 리스트-->
                     </UniformGrid>
                 </Viewbox>
@@ -115,11 +123,46 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Grid.Column="2">
-                    <StackPanel>
-                        <Button x:Name="Btn_Mp3Play" Content="재생" HorizontalAlignment="Left"  Margin="10" VerticalAlignment="Center" Width="200" Height="200" FontSize="25" Click="Btn_Mp3Play_Click" Background="LightGray" />
-                        <Button x:Name="Btn_Mp3Stop" Content="정지" HorizontalAlignment="Left"  Margin="10" VerticalAlignment="Center" Width="200" Height="200" FontSize="25" Click="Btn_Mp3Stop_Click" Background="LightGray" />
-                    </StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="150"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--장치 상태 및 Gain 조절-->
+                    <Grid Background="LightPink">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Canvas x:Name="rtsp_display" Margin="5" Background="Black"/>
+
                     </Grid>
+                    
+                    <!--정지, 재생 버튼-->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="Btn_Mp3Stop" Width="140" Height="140" Click="Btn_Mp3Stop_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Stroke="Gray" StrokeThickness="2" Fill="LightGray"/>
+                                        <ContentPresenter Content="{materialDesign:PackIcon Kind=Stop, Size=60}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Grid Width="20"/>
+                        <Button x:Name="Btn_Mp3Play" Width="140" Height="140" Click="Btn_Mp3Play_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Stroke="Gray" StrokeThickness="2" Fill="LightGray"/>
+                                        <ContentPresenter Content="{materialDesign:PackIcon Kind=Play, Size=70}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             
@@ -208,9 +251,7 @@
         <Grid x:Name="Grid_Bot" Grid.Row="3" Grid.ColumnSpan="2" Background="LightGray">
             <!--시간-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                <Label x:Name="Lb_Date" Content="2000-00-00" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
-                <Label x:Name="Lb_Day" Content="Friday" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
-                <Label x:Name="Lb_Timer" Content="오후 00:00:00" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20" Background="Transparent" Padding="0" BorderThickness="0"/>
+                <Label x:Name="System_Date_Time" Margin="1" FontSize="20" Background="Transparent" BorderBrush="Transparent"/>
             </StackPanel>
             <!--하단 진명로고-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
