@@ -52,7 +52,7 @@ namespace JManager_Edge
             {
                 //카메라 라면,
 
-                find_rtsp
+                //find_rtsp
                 string rtsp_addr = "";
                 camera_selected(rtsp_addr);
             }
@@ -110,6 +110,27 @@ namespace JManager_Edge
                 deviceData.Devices[arr_num] = new Device("", "", 3,"","");
 
             }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(deviceData.Devices[arr_num].Kind != 2)
+            {
+                MessageBox.Show("이 명령은 카메라로 등록된 장치에서만 유효합니다.");
+            }
+            else
+            {
+                Show_IPcam_rtsp_streaming sss = new Show_IPcam_rtsp_streaming(get_rtsp_from_url(deviceData.Devices[arr_num].IP));
+                sss.ShowDialog();
+            }
+        }
+
+        private string get_rtsp_from_url(string ip)
+        {
+
+
+
+
         }
     }
 }

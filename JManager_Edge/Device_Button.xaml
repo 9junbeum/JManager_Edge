@@ -50,6 +50,7 @@
                         <MenuItem Header="수정" Click="Mod_Device_Btn"/>
                         <MenuItem Header="설정" Click="Set_Device_Btn"/>
                         <MenuItem Header="삭제" Click="Del_Device_Btn"/>
+                        <MenuItem Header="카메라 영상 확인" Click="MenuItem_Click"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
