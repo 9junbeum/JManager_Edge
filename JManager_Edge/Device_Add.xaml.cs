@@ -101,8 +101,14 @@ namespace JManager_Edge
                 {
                     if (deviceData.ValidateIPv4(ip_address_.Text))
                     {
-
-                        SendUrl_with_IDPW(device_ID.Text, device_PW.Password, ip_address_.Text);
+                        if (deviceData.Devices[this.device_num].Kind == 0)//스피커 일때
+                        {
+                            SendUrl_with_IDPW(device_ID.Text, device_PW.Password, ip_address_.Text);
+                        }
+                        else if (deviceData.Devices[this.device_num].Kind == 1)//카메라 일때
+                        {
+                            SendUrl_with_IDPW_(device_ID.Text, device_PW.Password, ip_address_.Text);
+                        }
                     }
                     else
                     {
@@ -165,6 +171,54 @@ namespace JManager_Edge
             catch(Exception ex)
             {
                 notification_window.Text += ex.Message +"\n";
+                notification_window.Text += "입력하신 아이디, 비밀번호를 확인해주세요\n";
+            }
+        }
+        private void SendUrl_with_IDPW_(string id, string pw, string ip)
+        {
+            string url = "http://" + ip + "";
+            string responseText = string.Empty;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.UseDefaultCredentials = true;
+            request.PreAuthenticate = true;
+            System.Net.NetworkCredential netCredential = new System.Net.NetworkCredential(id, pw, ip);
+            request.Credentials = netCredential;
+
+            //request.Timeout = 30 * 1000; // 30초
+            //request.Headers.Add("Authorization", "BASIC SGVsbG8="); // 헤더 추가 방법
+
+            try
+            {
+                using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        HttpStatusCode status = resp.StatusCode;
+                        Console.WriteLine(status);  // 정상이면 "OK"
+                        notification_window.Text += status;
+                        if (status == HttpStatusCode.OK)
+                        {
+                            //Stream respStream = resp.GetResponseStream();
+                            //using (StreamReader sr = new StreamReader(respStream))
+                            //{
+                            //    responseText = sr.ReadToEnd();
+                            //    notification_window.Text += responseText;
+                            //}
+                            verify_led.color.Fill = Brushes.Green;
+                            notification_window.Text += "연결에 성공했습니다.\n";
+                        }
+                        else
+                        {
+                            notification_window.Text += "오류가 발생했습니다.\n";
+                            notification_window.Text += status.ToString();
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                notification_window.Text += ex.Message + "\n";
                 notification_window.Text += "입력하신 아이디, 비밀번호를 확인해주세요\n";
             }
         }

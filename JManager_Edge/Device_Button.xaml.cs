@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Policy;
+using System.ServiceModel.Channels;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Onvif;
 
 namespace JManager_Edge
 {
@@ -120,17 +123,48 @@ namespace JManager_Edge
             }
             else
             {
-                Show_IPcam_rtsp_streaming sss = new Show_IPcam_rtsp_streaming(get_rtsp_from_url(deviceData.Devices[arr_num].IP));
-                sss.ShowDialog();
+                //Show_IPcam_rtsp_streaming sss = new Show_IPcam_rtsp_streaming(get_rtsp_from_url(deviceData.Devices[arr_num].IP));
+                //sss.ShowDialog();
             }
         }
 
+        /*
         private string get_rtsp_from_url(string ip)
         {
+            string __url = "http://" + ip;
+            HttpTransportBindingElement httpBinding = new HttpTransportBindingElement();
+
+            EndpointAddress serviceAddress = new EndpointAddress(__url);
+            TextMessageEncodingBindingElement messegeElement = new TextMessageEncodingBindingElement();
+
+            httpBinding.AuthenticationScheme = AuthenticationSchemes.Digest;
+            messegeElement.MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.WSAddressing10);
+
+            CustomBinding bind = new CustomBinding(messegeElement, httpBinding);
+
+            onvif10_media.MediaClient mclient = new onvif10_media.MediaClient(bind, serviceAddress);
+
+            //MediaClient mclient=onvif10_  _onvifClientFactory.CreateClient<Media>(ep, _connectionParameters, MessageVersion.Soap12, _timeout);
+
+            mclient.ClientCredentials.HttpDigest.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+            mclient.ClientCredentials.HttpDigest.ClientCredential.UserName = "root";
+            mclient.ClientCredentials.HttpDigest.ClientCredential.Password = "root";
+
+            var streamsetup = new StreamSetup();
+            streamsetup.stream = StreamType.rtpUnicast;
+            streamsetup.transport = new Transport();
+            streamsetup.transport.protocol = TransportProtocol.udp;
+
+            var proflist = mclient.GetProfiles(new GetProfilesRequest());
+            foreach (var prof in proflist.Profiles)
+            {
+                var uri = mclient.GetStreamUri(new GetStreamUriRequest(streamsetup, prof.token));
+
+                Console.WriteLine(uri.MediaUri.uri);//rtsp address
+            }
 
 
 
-
-        }
+        }*/
     }
 }

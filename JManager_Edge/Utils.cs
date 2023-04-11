@@ -5,13 +5,12 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Emgu.CV;
-using Emgu.CV.CvEnum;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Collections;
 using System.Drawing;
+using Emgu.CV;
 
 namespace JManager_Edge
 {

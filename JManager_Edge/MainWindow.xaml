@@ -251,7 +251,7 @@
         <Grid x:Name="Grid_Bot" Grid.Row="3" Grid.ColumnSpan="2" Background="LightGray">
             <!--시간-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                <Label x:Name="System_Date_Time" Margin="1" FontSize="20" Background="Transparent" BorderBrush="Transparent"/>
+                <Label x:Name="System_Date_Time" Margin="10 1 1 1" FontSize="20" Background="Transparent" BorderBrush="Transparent" Padding="0"/>
             </StackPanel>
             <!--하단 진명로고-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
